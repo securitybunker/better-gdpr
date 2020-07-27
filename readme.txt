@@ -33,7 +33,7 @@ Yes. We are planing to add multiple languages in the nearest future.
 
 == Changelog ==
 
-= 0.2 =
+= 0.2.0 =
 * Initial product release.
 
 == Upgrade Notice ==
