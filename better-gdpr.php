@@ -178,7 +178,7 @@ function bettergdpr_profile_update($user_id, $old) {
 function bettergdpr_cookie_consent() {
 $subdomain = get_option( 'bettergdpr_subdomain', '' );
 $srv = "https://".$subdomain.".databunker.cloud/";
-$css_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/paranoid-guy.css';
+$css_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/better-gdpr.css';
 
 # body.faded {overflow:hidden}
 ?>
