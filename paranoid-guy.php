@@ -177,7 +177,7 @@ function paranoidguy_profile_update($user_id, $old) {
 function paranoidguy_cookie_consent() {
 $subdomain = get_option( 'paranoidguy_subdomain', '' );
 $srv = "https://".$subdomain.".databunker.cloud/";
-$css_file = plugin_dir_url( dirname( __FILE__ ) ) . 'paranoid-guy/paranoid-guy.css';
+$css_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/paranoid-guy.css';
 
 # body.faded {overflow:hidden}
 ?>
