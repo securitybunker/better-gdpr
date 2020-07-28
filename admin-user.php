@@ -1,6 +1,6 @@
 <?php
 
-function  paranoidguy_admin_page() {
+function paranoidguy_admin_page() {
   $xtoken = get_option( 'paranoidguy_xtoken', '' );
   $subdomain = get_option( 'paranoidguy_subdomain', '' );
   if ($xtoken == '' && $subdomain == '') {
@@ -10,7 +10,7 @@ function  paranoidguy_admin_page() {
   }
 }
 
-function generate_subdomain($site) {
+function paranoidguy_generate_subdomain($site) {
   $s = parse_url($site);
   $host = $s["host"];
   $levels = explode('.', $host);
@@ -106,10 +106,10 @@ $url = "https://".$subdomain.".databunker.cloud/site/admin-redirect.html?token="
 function paranoidguy_setup_page() {
   $account_email = get_settings('admin_email');
   $site = get_settings('siteurl');
-  $subdomain = generate_subdomain($site);
+  $subdomain = paranoidguy_generate_subdomain($site);
   $srv = "https://databunker.cloud";
   if (isset($_POST["email"])) {
-    $account_email = $_POST["email"];
+    $account_email = sanitize_email($_POST["email"]);
   }
   if (isset($_POST["subdomain"])) {
     $subdomain = $_POST["subdomain"];
