@@ -1,8 +1,8 @@
 <?php
 
-function paranoidguy_get_request($url) {
-  $xtoken = get_option( 'paranoidguy_xtoken', '' );
-  $subdomain = get_option( 'paranoidguy_subdomain', '' );
+function bettergdpr_get_request($url) {
+  $xtoken = get_option( 'bettergdpr_xtoken', '' );
+  $subdomain = get_option( 'bettergdpr_subdomain', '' );
   $srv = "https://".$subdomain.".databunker.cloud";
 
   $full_url = $srv.$url;
@@ -23,9 +23,9 @@ function paranoidguy_get_request($url) {
   return @json_decode($body);
 }
 
-function paranoidguy_data_request($method, $url, $data) {
-  $xtoken = get_option( 'paranoidguy_xtoken', '' );
-  $subdomain = get_option( 'paranoidguy_subdomain', '' );
+function bettergdpr_data_request($method, $url, $data) {
+  $xtoken = get_option( 'bettergdpr_xtoken', '' );
+  $subdomain = get_option( 'bettergdpr_subdomain', '' );
   $srv = "https://".$subdomain.".databunker.cloud";
   $full_url = $srv.$url;
   error_log($full_url);
@@ -53,41 +53,41 @@ function paranoidguy_data_request($method, $url, $data) {
 }
 
 
-function paranoidguy_api_get_user($method, $address) {
-  $result = paranoidguy_get_request("/v1/user/".$method."/".$address);
+function bettergdpr_api_get_user($method, $address) {
+  $result = bettergdpr_get_request("/v1/user/".$method."/".$address);
   return $result;
 }
 
-function paranoidguy_api_get_user_agreements($method, $address) {
-  $result = paranoidguy_get_request("/v1/agreement/".$method."/".$address);
+function bettergdpr_api_get_user_agreements($method, $address) {
+  $result = bettergdpr_get_request("/v1/agreement/".$method."/".$address);
   return $result;
 }
 
-function paranoidguy_api_get_all_lbasis() {
+function bettergdpr_api_get_all_lbasis() {
   static $saved_data;
   if (!isset($saved_data)) {
-    $saved_data = paranoidguy_get_request("/v1/lbasis");
+    $saved_data = bettergdpr_get_request("/v1/lbasis");
   }
   return $saved_data->rows;
 }
 
-function paranoidguy_api_agreement_accept($brief, $email) {
-   return paranoidguy_data_request('POST', "/v1/agreement/$brief/email/$email", array());
+function bettergdpr_api_agreement_accept($brief, $email) {
+   return bettergdpr_data_request('POST', "/v1/agreement/$brief/email/$email", array());
 }
 
-function paranoidguy_api_delete_user($email) {
-  return paranoidguy_data_request('DELETE', "/v1/user/email/$email", array());
+function bettergdpr_api_delete_user($email) {
+  return bettergdpr_data_request('DELETE', "/v1/user/email/$email", array());
 }
 
-function paranoidguy_api_create_pactivity($activity, $titlei, $desc) {
+function bettergdpr_api_create_pactivity($activity, $titlei, $desc) {
   $data = array(
 	  'title' => $title,
 	  'fulldesc' => $desc
   );
-  return paranoidguy_data_request('POST', "/v1/pactivity/".$activity, $data);
+  return bettergdpr_data_request('POST', "/v1/pactivity/".$activity, $data);
 }
 
-function paranoidguy_api_create_lbasis($brief, $page, $required, $title, $desc, $requiredmsg, $status="active") {
+function bettergdpr_api_create_lbasis($brief, $page, $required, $title, $desc, $requiredmsg, $status="active") {
   if ($status) {
     $status = 'active';
   }
@@ -102,14 +102,14 @@ function paranoidguy_api_create_lbasis($brief, $page, $required, $title, $desc, 
     'usercontrol' => True,
     'status' => $status
   );
-  return paranoidguy_data_request('POST', "/v1/lbasis/".$brief, $data);
+  return bettergdpr_data_request('POST', "/v1/lbasis/".$brief, $data);
 }
 
-function paranoidguy_api_link_pactivity($activity, $brief) {
-  return paranoidguy_data_request('POST', "/v1/pactivity/".$activity.'/'.$brief, array()); 
+function bettergdpr_api_link_pactivity($activity, $brief) {
+  return bettergdpr_data_request('POST', "/v1/pactivity/".$activity.'/'.$brief, array()); 
 }
 
-function paranoidguy_api_create_user($user) {
+function bettergdpr_api_create_user($user) {
   $wordpress = $user->data;
   $email = $wordpress->user_email;
   $login = $wordpress->user_login;
@@ -121,10 +121,10 @@ function paranoidguy_api_create_user($user) {
     'login' => $login,
     'wordpress' => $wordpress);
   var_error_log($data);
-  return paranoidguy_data_request('POST', "/v1/user", $data);
+  return bettergdpr_data_request('POST', "/v1/user", $data);
 }
 
-function paranoidguy_api_update_user($old_email, $user) {
+function bettergdpr_api_update_user($old_email, $user) {
   $wordpress = $user->data;
   $email = $wordpress->user_email;
   $login = $wordpress->user_login;
@@ -135,10 +135,10 @@ function paranoidguy_api_update_user($old_email, $user) {
     'email' => $email,
     'login' => $login,
     'wordpress' => $wordpress);
-  return paranoidguy_data_request('PUT', "/v1/user/email/$old_email", $data);
+  return bettergdpr_data_request('PUT', "/v1/user/email/$old_email", $data);
 }
 
-function paranoidguy_api_register($code, $site, $email, $subdomain) {
+function bettergdpr_api_register($code, $site, $email, $subdomain) {
   $data = array(
     'code' => $code,
     'site' => $site,

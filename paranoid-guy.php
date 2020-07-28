@@ -32,7 +32,7 @@ function var_error_log( $object=null ){
     error_log( $contents );        // log contents of the result of var_dump( $object )
 }
 
-function paranoidguy_request_export($request) {
+function bettergdpr_request_export($request) {
 	$auth = $request->get_header('authorization');
 	if (!$auth) {
 		return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
@@ -74,13 +74,13 @@ function paranoidguy_request_export($request) {
 add_action('rest_api_init', function () {
   register_rest_route( 'paranoidguy/v1', 'export/(?P<email>[\d\%\@\.\w]+)',array(
     'methods'  => 'GET',
-    'callback' => 'paranoidguy_request_export'
+    'callback' => 'bettergdpr_request_export'
   ));
 });
 
 
-function paranoidguy_show_consents($page) {
-  $options = paranoidguy_api_get_all_lbasis();
+function bettergdpr_show_consents($page) {
+  $options = bettergdpr_api_get_all_lbasis();
   $out = "";
   foreach ($options as $row) {
     if ($row->status != "active") {
@@ -102,13 +102,13 @@ function paranoidguy_show_consents($page) {
   return $out;
 }
 
-function paranoidguy_custom_registration() {
-  $out = paranoidguy_show_consents('signup-page');
+function bettergdpr_custom_registration() {
+  $out = bettergdpr_show_consents('signup-page');
   print($out);
 }
 
-function paranoidguy_registration_check( $errors, $sanitized_user_login, $user_email ) {
-  $options = paranoidguy_api_get_all_lbasis();
+function bettergdpr_registration_check( $errors, $sanitized_user_login, $user_email ) {
+  $options = bettergdpr_api_get_all_lbasis();
   foreach ($options as $row) {
     if ($row->status != "active") {
       continue;
@@ -125,25 +125,25 @@ function paranoidguy_registration_check( $errors, $sanitized_user_login, $user_e
   return $errors;
 }
 
-function paranoidguy_delete_user($user_id) {
+function bettergdpr_delete_user($user_id) {
   $user = get_user_by("id", $user_id);
   if (!isset($user) || !isset($user->user_email)) {
     return;
   }
   $email = $user->user_email;
-  paranoidguy_api_delete_user($email);
+  bettergdpr_api_delete_user($email);
 }
 
-function paranoidguy_registration_save($user_id ) { 
+function bettergdpr_registration_save($user_id ) { 
   $user = get_user_by("id", $user_id);
   $email = $user->user_email;
-  $record = paranoidguy_api_get_user('email', $email);
+  $record = bettergdpr_api_get_user('email', $email);
   if (isset($record) && isset($record->status) && $record->status == "ok") {
-    paranoidguy_api_update_user($email, $user);
+    bettergdpr_api_update_user($email, $user);
   } else {
-    paranoidguy_api_create_user($user);
+    bettergdpr_api_create_user($user);
   }
-  $options = paranoidguy_api_get_all_lbasis();
+  $options = bettergdpr_api_get_all_lbasis();
   if (isset($options)) {
     foreach ($options as $row) {
       if ($row->status != "active") {
@@ -151,45 +151,46 @@ function paranoidguy_registration_save($user_id ) {
       }
       $b = $row->brief;
       if (isset($_POST['paranoidguy-'.$b])) {
-        paranoidguy_api_agreement_accept($b, $email);
+        bettergdpr_api_agreement_accept($b, $email);
       }
     }
   }
   if (isset($_COOKIE['paranoidguy'])) {
-    $options = explode(',', $_COOKIE['paranoidguy']);
+    $cookie_value = sanitize_text_field($_COOKIE['paranoidguy']);
+    $options = explode(',', $cookie_value);
     foreach ($options as $row) {
-      paranoidguy_api_agreement_accept($row, $email);
+      bettergdpr_api_agreement_accept($row, $email);
     }
   }
   return $errors;
 }
 
-function paranoidguy_profile_update($user_id, $old) {
+function bettergdpr_profile_update($user_id, $old) {
   $user = get_user_by("id", $user_id);
-  $record = paranoidguy_api_get_user('email', $old->user_email);
+  $record = bettergdpr_api_get_user('email', $old->user_email);
   if (isset($record) && isset($record->status) && $record->status == "ok") {
-    paranoidguy_api_update_user($old->user_email, $user);
+    bettergdpr_api_update_user($old->user_email, $user);
   } else {
-    paranoidguy_api_create_user($user); 
+    bettergdpr_api_create_user($user); 
   }
 }
 
-function paranoidguy_cookie_consent() {
-$subdomain = get_option( 'paranoidguy_subdomain', '' );
+function bettergdpr_cookie_consent() {
+$subdomain = get_option( 'bettergdpr_subdomain', '' );
 $srv = "https://".$subdomain.".databunker.cloud/";
 $css_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/paranoid-guy.css';
 
 # body.faded {overflow:hidden}
 ?>
 <script>
-function paranoidguy_show_cookie_settings_popup() {
-  var style = document.getElementById('paranoidguy_style_body');
+function bettergdpr_show_cookie_settings_popup() {
+  var style = document.getElementById('bettergdpr_style_body');
   if (!style) {
     style = document.createElement('link');
     style.type = 'text/css';
     style.rel = "stylesheet";
-    style.id = 'paranoidguy_style_body';
-    //style.innerHTML = '.paranoidguy_faded_body { overflow:hidden}';
+    style.id = 'bettergdpr_style_body';
+    //style.innerHTML = '.bettergdpr_faded_body { overflow:hidden}';
     style.href = '<?php echo($css_file); ?>?aaa=aaa';
     document.getElementsByTagName('head')[0].appendChild(style);
   }
@@ -197,44 +198,44 @@ function paranoidguy_show_cookie_settings_popup() {
     var body = document.getElementsByTagName('body');
     if (body && body[0]) {
       //alert(body[0].className);
-      body[0].className = body[0].className + ' paranoidguy_faded_body';
+      body[0].className = body[0].className + ' bettergdpr_faded_body';
     }
-    paranoidguy_close_cookie_banner();
-    var settings = document.getElementById("paranoidguy_settings_popup");
+    bettergdpr_close_cookie_banner();
+    var settings = document.getElementById("bettergdpr_settings_popup");
     if (settings) {
       settings.style.display = "block";
     }
-    paranoidguy_show_cookie_settings();
+    bettergdpr_show_cookie_settings();
   }, 100);
 }
-function paranoidguy_close_cookie_settings_popup() {
+function bettergdpr_close_cookie_settings_popup() {
   var body = document.getElementsByTagName('body');
   if (body && body[0]) {
-    var oldList = body[0].className.replace(" paranoidguy_faded_body", "");
+    var oldList = body[0].className.replace(" bettergdpr_faded_body", "");
     body[0].className = oldList;
   }
-  var settings = document.getElementById("paranoidguy_settings_popup");
+  var settings = document.getElementById("bettergdpr_settings_popup");
   if (settings) {
     settings.style.display = "none";
   }
 }
-function paranoidguy_close_cookie_banner() {
-  var popup = document.getElementById('paranoidguy_cookie_banner');
+function bettergdpr_close_cookie_banner() {
+  var popup = document.getElementById('bettergdpr_cookie_banner');
   if (popup) {
     //popup.style.display = "none";
     popup.style.visibility = "hidden";
   }
 }
-var paranoidguy_settings_data = {};
-function paranoidguy_load_settings() {
+var bettergdpr_settings_data = {};
+function bettergdpr_load_settings() {
   var xhr0 = new XMLHttpRequest();
   //xhr0.open('GET', "<?php echo($srv); ?>/v1/sys/cookiesettings");
   xhr0.open('GET', "<?php echo($srv); ?>/v1/sys/cookiesettings");
   xhr0.onload = function () {
     if (xhr0.status === 200) {
-      paranoidguy_settings_data = JSON.parse(xhr0.responseText);
-      const scripts = paranoidguy_settings_data["scripts"];
-      const oldCookie = paranoidguy_get_cookie('paranoidguy');
+      bettergdpr_settings_data = JSON.parse(xhr0.responseText);
+      const scripts = bettergdpr_settings_data["scripts"];
+      const oldCookie = bettergdpr_get_cookie('paranoidguy');
       if (oldCookie) {
         const briefs = oldCookie.split(',');
 	for (var index = 0; index < scripts.length; index++) {
@@ -266,7 +267,7 @@ function paranoidguy_load_settings() {
   };
   xhr0.send();
 }
-function paranoidguy_set_cookie(name, briefs) {
+function bettergdpr_set_cookie(name, briefs) {
   const value = briefs.join(',');
   var expires = "";
   const days = 30;
@@ -286,7 +287,7 @@ function paranoidguy_set_cookie(name, briefs) {
   }
   document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
-function paranoidguy_get_cookie(name) {
+function bettergdpr_get_cookie(name) {
   var nameEQ = name + "=";
   var ca = document.cookie.split(';');
   for(var i=0;i < ca.length;i++) {
@@ -296,9 +297,9 @@ function paranoidguy_get_cookie(name) {
   }
   return null;
 }
-function paranoidguy_show_cookie_settings() {
+function bettergdpr_show_cookie_settings() {
   var out = '';
-  const rows = paranoidguy_settings_data["rows"];
+  const rows = bettergdpr_settings_data["rows"];
   for (var index = 0; index < rows.length; index++) {
     const r = rows[index];
     var locked = 'onclick="return false;"';
@@ -314,88 +315,88 @@ function paranoidguy_show_cookie_settings() {
     out = out + '</div>';
     console.log(r);
   }
-  var page = document.getElementById('paranoidguy_settings_items');
+  var page = document.getElementById('bettergdpr_settings_items');
   page.innerHTML = out;
   //var briefs = ["aaa","bbb","ccc"];
-  //paranoidguy_set_cookie('paranoidguy', briefs);
+  //bettergdpr_set_cookie('paranoidguy', briefs);
 }
-function paranoidguy_allow_all_cookies() {
+function bettergdpr_allow_all_cookies() {
   var briefs = ["all"];
-  paranoidguy_set_cookie('paranoidguy', briefs);
-  paranoidguy_close_cookie_settings_popup();
-  paranoidguy_close_cookie_banner();
+  bettergdpr_set_cookie('paranoidguy', briefs);
+  bettergdpr_close_cookie_settings_popup();
+  bettergdpr_close_cookie_banner();
 }
-function  paranoidguy_allow_custom_cookies() {
+function  bettergdpr_allow_custom_cookies() {
   var selected = [];
-  var page = document.getElementById('paranoidguy_settings_items');
+  var page = document.getElementById('bettergdpr_settings_items');
   var inputs = page.getElementsByTagName('input');
   for (var i = 0; i < inputs.length; i++) {  
     if (inputs[i].type == "checkbox" && inputs[i].checked) {  
       selected.push(inputs[i].name);  
     }
   }
-  paranoidguy_set_cookie('paranoidguy', selected);
-  paranoidguy_close_cookie_settings_popup();
-  paranoidguy_close_cookie_banner();
+  bettergdpr_set_cookie('paranoidguy', selected);
+  bettergdpr_close_cookie_settings_popup();
+  bettergdpr_close_cookie_banner();
 }
-function  paranoidguy_allow_required_cookies() {
+function  bettergdpr_allow_required_cookies() {
   var briefs = [];
-  const rows = paranoidguy_settings_data["rows"];
+  const rows = bettergdpr_settings_data["rows"];
   for (var index = 0; index < rows.length; index++) {
     const r = rows[index];
     if (r['requiredflag']) {
       briefs.push(r['brief']);
     }
   }
-  paranoidguy_set_cookie('paranoidguy', briefs);
-  paranoidguy_close_cookie_settings_popup();
-  paranoidguy_close_cookie_banner();
+  bettergdpr_set_cookie('paranoidguy', briefs);
+  bettergdpr_close_cookie_settings_popup();
+  bettergdpr_close_cookie_banner();
 }
-paranoidguy_load_settings();
+bettergdpr_load_settings();
 </script>
-<div id="paranoidguy_settings_popup" style="background: rgba(0, 0, 0, 0.7);position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index:999999999; display:none;">
-  <div style="position:absolute; top:20px; right:20px; background: transparent;cursor: pointer;color:#fff;font-family: 'Helvetica', 'Arial', sans-serif;font-size: 2em;font-weight: 400;text-align: center;width: 40px;height: 40px;border-radius: 5px;margin: 0 auto;" onclick="paranoidguy_close_cookie_settings_popup()">X</div>
+<div id="bettergdpr_settings_popup" style="background: rgba(0, 0, 0, 0.7);position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index:999999999; display:none;">
+  <div style="position:absolute; top:20px; right:20px; background: transparent;cursor: pointer;color:#fff;font-family: 'Helvetica', 'Arial', sans-serif;font-size: 2em;font-weight: 400;text-align: center;width: 40px;height: 40px;border-radius: 5px;margin: 0 auto;" onclick="bettergdpr_close_cookie_settings_popup()">X</div>
   <div style="display:block;height:10%;">&nbsp;</div>
-  <div id="paranoidguy_settings_page">
+  <div id="bettergdpr_settings_page">
   <h3>Privacy settings</h3>
   <p>When you visit any website, it may store or retrieve information on your browser, mostly in the form of cookies. This information might be about you, your preferences or your device and is mostly used to make the site work as you expect it to. The information does not usually directly identify you, but it can give you a more personalized web experience. Because we respect your right to privacy, you can choose not to allow some types of cookies. Click on the different category headings to find out more and change our default settings. However, blocking some types of cookies may impact your experience of the site and the services we are able to offer.</p>
-  <center><button onclick='paranoidguy_allow_all_cookies();'>Allow All</button></center>
+  <center><button onclick='bettergdpr_allow_all_cookies();'>Allow All</button></center>
   <h4>Manage individual settings</h4>
-  <div id="paranoidguy_settings_items"></div>
-  <center><button onclick='paranoidguy_allow_custom_cookies();'>Save settings</button></center>
+  <div id="bettergdpr_settings_items"></div>
+  <center><button onclick='bettergdpr_allow_custom_cookies();'>Save settings</button></center>
   </div>
 </div>
-<div id="paranoidguy_cookie_banner" style="visibility:hidden;background-color:rgba(71,81,84,.95);box-shadow: 0 -8px 20px 0 rgba(0,0,0,.2);width:100%;margin:0 auto;padding:5px;font-size: 1em;color: #6d6d6d;bottom:0px;position:fixed;left: 0px;opacity:0.9;filter:alpha(opacity=80);height:auto;max-height:500px;z-index:9999999999;overflow:hidden;">
+<div id="bettergdpr_cookie_banner" style="visibility:hidden;background-color:rgba(71,81,84,.95);box-shadow: 0 -8px 20px 0 rgba(0,0,0,.2);width:100%;margin:0 auto;padding:5px;font-size: 1em;color: #6d6d6d;bottom:0px;position:fixed;left: 0px;opacity:0.9;filter:alpha(opacity=80);height:auto;max-height:500px;z-index:9999999999;overflow:hidden;">
 <div style="float:left;color:#fff;width: calc(100% - 200px);padding:10px;">
 This site uses cookies and related technologies for site operation, analytics, and third party
 advertising purposes as described in our Privacy and Data Processing Policy. You may choose to consent
  to our use of these technologies, reject non-essential technologies, or further manage your preferences.
 </div>
 <div style="float:left;width:200px;margin:0 auto;text-align:center;vertical-align: middle;padding-top:15px;">
-<button style="text-decoration:none;font-weight: 400;text-transform: uppercase;cursor: pointer;background-color: #2eb8ff;min-width: 160px;min-height: 33px;margin: 0;padding: .5rem 1rem;font-size: 1.3rem;color: #fff;border: none;border-radius: 3px;outline: none;" onclick='paranoidguy_allow_all_cookies();'>I agree&nbsp;<span style="font-weight: 700;style:inline-block;height:25px;">✓</span></button>
-<button style="text-decoration:none;font-weight: 400;text-transform: uppercase;background-color:transparent;cursor: pointer;min-width: 160px;min-height: 30px;margin: 5px 0 0 0;padding: .5rem 1rem;font-size: 1.1rem;color: #fff;border: 1px solid #fff;border-radius: 3px;outline: none;" onclick='paranoidguy_allow_required_cookies();'>Required only</button>
-<div style="display:block;padding:0;margin:0;"><a style="color:#fff;font-weight: 400;background-color:transparent;cursor: pointer;font-size:1rem;" href="#" onclick="paranoidguy_show_cookie_settings_popup();">Customize settings</a></div>
+<button style="text-decoration:none;font-weight: 400;text-transform: uppercase;cursor: pointer;background-color: #2eb8ff;min-width: 160px;min-height: 33px;margin: 0;padding: .5rem 1rem;font-size: 1.3rem;color: #fff;border: none;border-radius: 3px;outline: none;" onclick='bettergdpr_allow_all_cookies();'>I agree&nbsp;<span style="font-weight: 700;style:inline-block;height:25px;">✓</span></button>
+<button style="text-decoration:none;font-weight: 400;text-transform: uppercase;background-color:transparent;cursor: pointer;min-width: 160px;min-height: 30px;margin: 5px 0 0 0;padding: .5rem 1rem;font-size: 1.1rem;color: #fff;border: 1px solid #fff;border-radius: 3px;outline: none;" onclick='bettergdpr_allow_required_cookies();'>Required only</button>
+<div style="display:block;padding:0;margin:0;"><a style="color:#fff;font-weight: 400;background-color:transparent;cursor: pointer;font-size:1rem;" href="#" onclick="bettergdpr_show_cookie_settings_popup();">Customize settings</a></div>
 </div>
 </div>
 <script>
-const oldCookie = paranoidguy_get_cookie('paranoidguy');
+const oldCookie = bettergdpr_get_cookie('paranoidguy');
 if (!oldCookie) {
-  var banner = document.getElementById('paranoidguy_cookie_banner');
+  var banner = document.getElementById('bettergdpr_cookie_banner');
   banner.style.visibility = "visible";
 }
 </script>
 <?php
 }
 
-add_action( 'delete_user', 'paranoidguy_delete_user');
-add_action( 'profile_update', 'paranoidguy_profile_update', 10, 2);
-add_action( 'register_form', 'paranoidguy_custom_registration');
-add_action( 'registration_errors', 'paranoidguy_registration_check', 10, 3);
-add_action( 'user_register', 'paranoidguy_registration_save');
-add_action( 'wp_footer', 'paranoidguy_cookie_consent');
+add_action( 'delete_user', 'bettergdpr_delete_user');
+add_action( 'profile_update', 'bettergdpr_profile_update', 10, 2);
+add_action( 'register_form', 'bettergdpr_custom_registration');
+add_action( 'registration_errors', 'bettergdpr_registration_check', 10, 3);
+add_action( 'user_register', 'bettergdpr_registration_save');
+add_action( 'wp_footer', 'bettergdpr_cookie_consent');
 
-function paranoidguy_profile_edit_user( $user ) {
-$subdomain = get_option( 'paranoidguy_subdomain', '' );
+function bettergdpr_profile_edit_user( $user ) {
+$subdomain = get_option( 'bettergdpr_subdomain', '' );
 $srv= "https://".$subdomain.".databunker.cloud/";
 
 ?><h1>Privacy Portal</h1>
@@ -412,6 +413,6 @@ $srv= "https://".$subdomain.".databunker.cloud/";
 <p>You can manage all your rights in the Privacy portal availble at <a target="_blank" href="<?php echo $srv; ?>"><?php echo $srv; ?></a></p>
 <?php
 }
-add_action( 'show_user_profile', 'paranoidguy_profile_edit_user' );
+add_action( 'show_user_profile', 'bettergdpr_profile_edit_user' );
 
-paranoidguy_init_admin();
+bettergdpr_init_admin();
