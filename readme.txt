@@ -13,13 +13,14 @@ GDPR & Cookie Consent plugin built by ParanoidGuy.com team.
 
 == Description ==
 
-This is an official version of the Better-GDPR plugin built by PranoidGuy.com team.
-Let's keep in touch and share your experience. Mail us at yuli @ paranoidguy.com
+This is an official version of the Better-GDPR plugin built by ParanoidGuy.com team.
+We are paranoid about customer data privacy at ParanoidGuy.com.
+Let's keep in touch and share your experience. Mail us at office @ paranoidguy.com
 
 = Plugin main features: =
 
 1. Cookie consent popup
-2. GDPR Privacy portal
+2. Databunker privacy portal integration
 3. User profile change propagation (BETA)
 
 = 1. Cookie consent plugin =
