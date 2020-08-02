@@ -88,7 +88,8 @@ Yes. We are planing to add multiple languages in the nearest future.
 
 == Screenshots ==
 
-1. Advanced Cookie Consent
+1. BetterGDPR Solution Architecture
+2. Advanced Cookie Consent Screen
 
 == Changelog ==
 
