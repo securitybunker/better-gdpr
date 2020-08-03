@@ -59,9 +59,10 @@ $url = "https://".$subdomain.".privacybunker.cloud/site/admin-redirect.html?toke
 
 ?>
 <h3>Privacy Bunker Access</h3>
-<p>Admin access token: <?php echo($xtoken); ?></p>
+<p>Admin access token for your website*: <?php echo($xtoken); ?></p>
+<p>* Keep this value secret.</p>
 <p>Service url: <a target="_blank" href="<?php echo($service); ?>"><?php echo($service); ?></a></p>
-<p>Automatic login: <a target="_blank" href="<?php echo($url); ?>">click here</a></p>
+<p>One click login: <a target="_blank" href="<?php echo($url); ?>">click here</a></p>
 <?php
 }
 
@@ -169,7 +170,7 @@ function submit_step2(form) {
 <img alt="Logo" src="https://paranoidguy.com/logo.png" style="padding:20px;"/>
 </div>
 <div style="padding:10px;text-align:left;">
- <h2 style="padding:0 0 5px 0;margin:0;">ParanoidGuy Privacybunker.Cloud Plugin Activation</h2>
+ <h2 style="padding:0 0 5px 0;margin:0;">Start with plugin activation</h2>
  <div id="bettergdpr_error" class="error" style="<?php echo($errstyle); ?>"><?php echo($errmsg); ?></div>
  <div style="display:block;height:20px;"></div>
  <form id="bettergdpr_step0" accept-charset="UTF-8" method="post" action="#" style="display:<?php echo(($step==0)?"block":"none")?>;">
@@ -228,14 +229,6 @@ function bettergdpr_admin_menu() {
     'manage_options',// capability
     'bettergdpr_setup',// menu slug
     'bettergdpr_setup_page' // callback function
-  );
-  add_submenu_page(
-    'paranoidguy',// menu slug
-    'Admin',// menu title
-    'Admin',
-    'manage_options',// capability
-    'bettergdpr_admin',// menu slug
-    'bettergdpr_show_admin_ui' // callback function
   );
 }
 
