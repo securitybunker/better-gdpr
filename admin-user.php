@@ -91,7 +91,7 @@ function bettergdpr_register_tenant($code, $site, $email, $subdomain) {
 function bettergdpr_show_admin_ui() {
 $xtoken = get_option( 'bettergdpr_xtoken', '' );
 $subdomain = get_option( 'bettergdpr_subdomain', '' );
-$url = "https://".$subdomain.".databunker.cloud/site/admin-redirect.html?token=".$xtoken;
+$url = "https://".$subdomain.".privacybunker.cloud/site/admin-redirect.html?token=".$xtoken;
 
 # onload="this.style.height=(this.contentWindow.document.body.scrollHeight+20)+'px';"
 ?>
@@ -107,7 +107,7 @@ function bettergdpr_setup_page() {
   $account_email = get_settings('admin_email');
   $site = get_settings('siteurl');
   $subdomain = bettergdpr_generate_subdomain($site);
-  $srv = "https://databunker.cloud";
+  $srv = "https://privacybunker.cloud";
   if (isset($_POST["email"])) {
     $account_email = sanitize_email($_POST["email"]);
   }
@@ -207,11 +207,11 @@ function submit_step2(form) {
 <img alt="Logo" src="https://paranoidguy.com/logo.png" style="padding:20px;"/>
 </div>
 <div style="padding:10px;text-align:left;">
- <h2 style="padding:0 0 5px 0;margin:0;">ParanoidGuy Databunker.Cloud Plugin Activation</h2>
+ <h2 style="padding:0 0 5px 0;margin:0;">ParanoidGuy Privacybunker.Cloud Plugin Activation</h2>
  <div id="bettergdpr_error" class="error" style="<?php echo($errstyle); ?>"><?php echo($errmsg); ?></div>
  <div style="display:block;height:20px;"></div>
  <form id="bettergdpr_step0" accept-charset="UTF-8" method="post" action="#" style="display:<?php echo(($step==0)?"block":"none")?>;">
-   <i>Type your email address bellow to activate your Databunker.cloud account.</i>
+   <i>Type your email address bellow to activate your Privacybunker.cloud account.</i>
    <div class="form-item" id="edit-mail-wrapper" style="padding-top:10px;">
      <label for="edit-mail" style="float:left;padding-top:6px;">E-mail address:</label>
      <input type="text" maxlength="54" name="account_email" id="edit-mail" size="50" value="<?php echo $account_email; ?>" style="float:right;width:315px;" />
@@ -219,7 +219,7 @@ function submit_step2(form) {
    </div>
    <div class="form-item" id="edit-subdomain-wrapper" style="padding-top:10px;">
      <label for="edit-subdomain0" style="float:left;padding-top:6px;">Privacy portal address:</label>
-     <div id="edit-subdomain0" style="float:right;width:315px;"><span>https://&nbsp;</span><span><input type="text" maxlength="54" name="subdomain" id="edit-subdomain" size="50" value="<?php echo $subdomain; ?>" style="width:145px;" onchange="bettergdpr_validate_subdomain(this)" /></span><span>&nbsp;.databunker.cloud/</span></div>
+     <div id="edit-subdomain0" style="float:right;width:315px;"><span>https://&nbsp;</span><span><input type="text" maxlength="54" name="subdomain" id="edit-subdomain" size="50" value="<?php echo $subdomain; ?>" style="width:145px;" onchange="bettergdpr_validate_subdomain(this)" /></span><span>&nbsp;.privacybunker.cloud/</span></div>
      <div style="clear:both;"></div>
    </div>
    <div class="form-item" id="submit-wrapper" style="clear:left;padding-top:10px;">
@@ -243,7 +243,7 @@ function submit_step2(form) {
 </div>
 <hr>
 <center>
-<a href="https://databunker.cloud/" target="_blank">Databunker.Cloud Term Of Service</a>
+<a href="https://privacybunker.cloud/" target="_blank">Privacybunker.Cloud Term Of Service</a>
 </center>
 </div>
 </center>

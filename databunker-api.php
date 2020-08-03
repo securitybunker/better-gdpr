@@ -3,7 +3,7 @@
 function bettergdpr_get_request($url) {
   $xtoken = get_option( 'bettergdpr_xtoken', '' );
   $subdomain = get_option( 'bettergdpr_subdomain', '' );
-  $srv = "https://".$subdomain.".databunker.cloud";
+  $srv = "https://".$subdomain.".privacybunker.cloud";
 
   $full_url = $srv.$url;
   $args = array(
@@ -26,7 +26,7 @@ function bettergdpr_get_request($url) {
 function bettergdpr_data_request($method, $url, $data) {
   $xtoken = get_option( 'bettergdpr_xtoken', '' );
   $subdomain = get_option( 'bettergdpr_subdomain', '' );
-  $srv = "https://".$subdomain.".databunker.cloud";
+  $srv = "https://".$subdomain.".privacybunker.cloud";
   $full_url = $srv.$url;
   error_log($full_url);
   $payload = json_encode($data);
@@ -145,7 +145,7 @@ function bettergdpr_api_register($code, $site, $email, $subdomain) {
     'email' => $email,
     'subdomain' => $subdomain    
   );
-  $full_url = "https://databunker.cloud/v1/account/step2";
+  $full_url = "https://privacybunker.cloud/v1/account/step2";
   $payload = json_encode($data);
   $curl = curl_init();
   $headers = array('Content-Type: application/json');

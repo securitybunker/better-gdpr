@@ -20,7 +20,7 @@
  */
 
 require_once(ABSPATH.'/wp-admin/includes/privacy-tools.php');
-require_once('databunker-api.php');
+require_once('privacybunker-api.php');
 require_once('admin-user.php');
 
 
@@ -155,8 +155,8 @@ function bettergdpr_registration_save($user_id ) {
       }
     }
   }
-  if (isset($_COOKIE['paranoidguy'])) {
-    $cookie_value = sanitize_text_field($_COOKIE['paranoidguy']);
+  if (isset($_COOKIE['BETTERGDPR'])) {
+    $cookie_value = sanitize_text_field($_COOKIE['BETTERGDPR']);
     $options = explode(',', $cookie_value);
     foreach ($options as $row) {
       bettergdpr_api_agreement_accept($row, $email);
@@ -177,7 +177,7 @@ function bettergdpr_profile_update($user_id, $old) {
 
 function bettergdpr_cookie_consent() {
 $subdomain = get_option( 'bettergdpr_subdomain', '' );
-$srv = "https://".$subdomain.".databunker.cloud/";
+$srv = "https://".$subdomain.".privacybunker.cloud/";
 $css_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/better-gdpr.css';
 
 # body.faded {overflow:hidden}
@@ -235,7 +235,7 @@ function bettergdpr_load_settings() {
     if (xhr0.status === 200) {
       bettergdpr_settings_data = JSON.parse(xhr0.responseText);
       const scripts = bettergdpr_settings_data["scripts"];
-      const oldCookie = bettergdpr_get_cookie('paranoidguy');
+      const oldCookie = bettergdpr_get_cookie('BETTERGDPR');
       if (oldCookie) {
         const briefs = oldCookie.split(',');
 	for (var index = 0; index < scripts.length; index++) {
@@ -317,12 +317,10 @@ function bettergdpr_show_cookie_settings() {
   }
   var page = document.getElementById('bettergdpr_settings_items');
   page.innerHTML = out;
-  //var briefs = ["aaa","bbb","ccc"];
-  //bettergdpr_set_cookie('paranoidguy', briefs);
 }
 function bettergdpr_allow_all_cookies() {
   var briefs = ["all"];
-  bettergdpr_set_cookie('paranoidguy', briefs);
+  bettergdpr_set_cookie('BETTERGDPR', briefs);
   bettergdpr_close_cookie_settings_popup();
   bettergdpr_close_cookie_banner();
 }
@@ -335,7 +333,7 @@ function  bettergdpr_allow_custom_cookies() {
       selected.push(inputs[i].name);  
     }
   }
-  bettergdpr_set_cookie('paranoidguy', selected);
+  bettergdpr_set_cookie('BETTERGDPR', selected);
   bettergdpr_close_cookie_settings_popup();
   bettergdpr_close_cookie_banner();
 }
@@ -348,7 +346,7 @@ function  bettergdpr_allow_required_cookies() {
       briefs.push(r['brief']);
     }
   }
-  bettergdpr_set_cookie('paranoidguy', briefs);
+  bettergdpr_set_cookie('BETTERGDPR', briefs);
   bettergdpr_close_cookie_settings_popup();
   bettergdpr_close_cookie_banner();
 }
@@ -379,7 +377,7 @@ advertising purposes as described in our Privacy and Data Processing Policy. You
 </div>
 </div>
 <script>
-const oldCookie = bettergdpr_get_cookie('paranoidguy');
+const oldCookie = bettergdpr_get_cookie('BETTERGDPR');
 if (!oldCookie) {
   var banner = document.getElementById('bettergdpr_cookie_banner');
   banner.style.visibility = "visible";
@@ -397,7 +395,7 @@ add_action( 'wp_footer', 'bettergdpr_cookie_consent');
 
 function bettergdpr_profile_edit_user( $user ) {
 $subdomain = get_option( 'bettergdpr_subdomain', '' );
-$srv= "https://".$subdomain.".databunker.cloud/";
+$srv= "https://".$subdomain.".privacybunker.cloud/";
 
 ?><h1>Privacy Portal</h1>
 <p>The GDPR provides the following rights for individuals:</p>
