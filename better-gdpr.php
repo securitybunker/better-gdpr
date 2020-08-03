@@ -70,14 +70,15 @@ function bettergdpr_request_export($request) {
 	#return $response;
 }
 
-
+// TODO: finish request auth
+/*
 add_action('rest_api_init', function () {
   register_rest_route( 'paranoidguy/v1', 'export/(?P<email>[\d\%\@\.\w]+)',array(
     'methods'  => 'GET',
     'callback' => 'bettergdpr_request_export'
   ));
 });
-
+*/
 
 function bettergdpr_show_consents($page) {
   $options = bettergdpr_api_get_all_lbasis();
