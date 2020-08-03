@@ -48,43 +48,6 @@ function bettergdpr_register_tenant($code, $site, $email, $subdomain) {
   bettergdpr_api_create_lbasis("send-email-on-login", "login", False, 'Send email on login', 'Confirm to allow sending access code using 3rd party email gateway', 'You will not be able to login');
   bettergdpr_api_create_lbasis("send-sms-on-login", "login", False, 'Send SMS on login', 'Confirm to allow sending access code using 3rd party SMS gateway', 'You will not be able to login');
 
-/*
-  bettergdpr_api_create_pactivity("online-analytics-tracking", "Online user tracking by web analytics companies");
-  bettergdpr_api_create_lbasis("analytics-tracking-consent", "cookie-popup", False, "Accept web analytics tracking", "");
-  bettergdpr_api_link_pactivity("online-analytics-tracking", "analytics-tracking-consent");
-
-  bettergdpr_api_create_pactivity("online-advertising-tracking", "Online user tracking by display ads companies");
-  bettergdpr_api_create_lbasis("advertising-tracking-consent", "cookie-popup", False, "Accept advertising pixel tracking", "");
-  bettergdpr_api_link_pactivity("online-advertising-tracking", "advertising-tracking-consent");
-
-  bettergdpr_api_create_pactivity("online-affiliate-tracking", "Online user tracking by affiliate network companies");
-
-  bettergdpr_api_create_pactivity("online-remarketting-pixel-tracking", "Online user remarketting pixel tracking by advertising, social, affiliate companies");
-
-  bettergdpr_api_create_pactivity("online-chat-tracking", "Online user tracking by web chat companies");
-  bettergdpr_api_create_lbasis("chat-tracking-consent", "cookie-popup", False, "Accept tracking by online chat companies.", "");
-  bettergdpr_api_link_pactivity("online-chat-tracking", "chat-tracking-consent");
-
-  bettergdpr_api_create_pactivity("internal-website-tracking", "Internal online website tracking of logged in users");
-
-  bettergdpr_api_create_pactivity("video-companies-tracking", "Online user tracking by video broadcasting companies");
-  bettergdpr_api_create_lbasis("video-tracking-consent", "cookie-popup", False, "Accept tracking by video broadcasting companies, i.e. Youtube", "");
-
-  bettergdpr_api_create_pactivity("podcast-companies-tracking", "Online user tracking by podcast broadcasting companies");
-  bettergdpr_api_create_pactivity("radio-companies-tracking", "Online user tracking by radio broadcasting companies");
-  bettergdpr_api_create_pactivity("online-captcha-tracking", "Online user tracking by captcha companies");
-  bettergdpr_api_create_pactivity("online-cdn-tracking", "Online user tracking by CDN companies");
-  bettergdpr_api_create_pactivity("online-fonts-tracking", "Online user tracking by companies offering online fonts");
-  bettergdpr_api_create_pactivity("online-map-tracking", "Online user tracking by online map companies");
-  bettergdpr_api_create_pactivity("social-network-tracking", "Online user tracking by social networks services");
-  bettergdpr_api_create_pactivity("page-share-tracking", "Online user tracking by site & page sharing companies");
-  bettergdpr_api_create_pactivity("comment-hosting-tracking", "Online tracking by website comment hosting companies");
-  bettergdpr_api_create_pactivity("share-with-crm-company", "Save user details in CRM company");
-  bettergdpr_api_create_pactivity("share-with-email-marketing-comp", "Save user details with email marketing company");
-  bettergdpr_api_create_pactivity("share-with-sms-company", "Save user details with SMS sending company");
-  bettergdpr_api_create_lbasis("accept-terms-of-service", "signup-page", True, "Accept terms of service.", "We will not be able to provide you with the service.");
-  bettergdpr_api_link_pactivity("internal-website-tracking", "accept-terms-of-service");
-*/
   return $result;
 }
 
