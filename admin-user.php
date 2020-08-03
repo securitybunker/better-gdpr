@@ -219,7 +219,7 @@ function submit_step2(form) {
    </div>
    <div class="form-item" id="edit-subdomain-wrapper" style="padding-top:10px;">
      <label for="edit-subdomain0" style="float:left;padding-top:6px;">Privacy portal address:</label>
-     <div id="edit-subdomain0" style="float:right;width:315px;"><span>https://&nbsp;</span><span><input type="text" maxlength="54" name="subdomain" id="edit-subdomain" size="50" value="<?php echo $subdomain; ?>" style="width:145px;" onchange="bettergdpr_validate_subdomain(this)" /></span><span>&nbsp;.privacybunker.cloud/</span></div>
+     <div id="edit-subdomain0" style="float:right;width:315px;"><span>https://&nbsp;</span><span><input type="text" maxlength="54" name="subdomain" id="edit-subdomain" size="50" value="<?php echo $subdomain; ?>" style="width:125px;" onchange="bettergdpr_validate_subdomain(this)" /></span><span>&nbsp;.privacybunker.cloud/</span></div>
      <div style="clear:both;"></div>
    </div>
    <div class="form-item" id="submit-wrapper" style="clear:left;padding-top:10px;">

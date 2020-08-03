@@ -20,7 +20,7 @@
  */
 
 require_once(ABSPATH.'/wp-admin/includes/privacy-tools.php');
-require_once('privacybunker-api.php');
+require_once('databunker-api.php');
 require_once('admin-user.php');
 
 

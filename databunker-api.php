@@ -11,7 +11,7 @@ function bettergdpr_get_request($url) {
       'X-Bunker-Token' => $xtoken
     ),
     'blocking' => true
-  )
+  );
   $response  = wp_remote_get($full_url, $args);
   $body      = wp_remote_retrieve_body( $response );
   $http_code = wp_remote_retrieve_response_code( $response );
@@ -37,7 +37,7 @@ function bettergdpr_data_request($method, $url, $data) {
     ),
     'blocking' => true,
     'method' => $method
-  )
+  );
   if (!empty($data)) {
     $args['body'] = $data;
   }
