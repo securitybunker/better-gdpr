@@ -147,26 +147,23 @@ function bettergdpr_api_register($code, $site, $email, $subdomain) {
   );
   $full_url = "https://privacybunker.cloud/v1/account/step2";
   $payload = json_encode($data);
-  $curl = curl_init();
-  $headers = array('Content-Type: application/json');
-  curl_setopt_array($curl, array(
-    CURLOPT_URL => $full_url,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => "",
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 0,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => 'POST',
-    CURLOPT_HTTPHEADER => $headers,
-    CURLOPT_POSTFIELDS => $payload
-  ));
-  $response = @curl_exec($curl);
-  $httpcode = @curl_getinfo($curl, CURLINFO_HTTP_CODE);
-  @curl_close($curl);
-  if ( $httpcode != 200) {
-    error_log($httpcode);
+  $args = array(
+    'headers' => array(
+      'Content-Type' => 'application/json'
+    ),
+    'blocking' => true,
+    'method' => 'POST'
+  );
+  if (!empty($data)) {
+    $args['body'] = $data;
+  }
+  $response  = wp_remote_request($full_url, $args);
+  $body      = wp_remote_retrieve_body( $response );
+  $http_code = wp_remote_retrieve_response_code( $response );
+  if ( $http_code != 200) {
+    error_log($full_url);
+    error_log($http_code);
     error_log($response);
   }
-  return @json_decode($response);
+  return @json_decode($body);
 }
