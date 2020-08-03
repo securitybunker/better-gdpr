@@ -28,18 +28,17 @@ function bettergdpr_data_request($method, $url, $data) {
   $subdomain = get_option( 'bettergdpr_subdomain', '' );
   $srv = "https://".$subdomain.".privacybunker.cloud";
   $full_url = $srv.$url;
-  error_log($full_url);
-  $payload = json_encode($data);
   $args = array(
     'headers' => array(
       'X-Bunker-Token' => $xtoken,
       'Content-Type' => 'application/json'
     ),
     'blocking' => true,
-    'method' => $method
+    'method'   => $method
   );
   if (!empty($data)) {
-    $args['body'] = $data;
+    $payload = json_encode($data);
+    $args['body'] = $payload;
   }
   $response  = wp_remote_request($full_url, $args);
   $body      = wp_remote_retrieve_body( $response );
@@ -120,7 +119,6 @@ function bettergdpr_api_create_user($user) {
     'email' => $email,
     'login' => $login,
     'wordpress' => $wordpress);
-  var_error_log($data);
   return bettergdpr_data_request('POST', "/v1/user", $data);
 }
 
@@ -146,16 +144,16 @@ function bettergdpr_api_register($code, $site, $email, $subdomain) {
     'subdomain' => $subdomain    
   );
   $full_url = "https://privacybunker.cloud/v1/account/step2";
-  $payload = json_encode($data);
   $args = array(
     'headers' => array(
       'Content-Type' => 'application/json'
     ),
     'blocking' => true,
-    'method' => 'POST'
+    'method'   => 'POST'
   );
   if (!empty($data)) {
-    $args['body'] = $data;
+    $payload = json_encode($data);
+    $args['body'] = $payload;
   }
   $response  = wp_remote_request($full_url, $args);
   $body      = wp_remote_retrieve_body( $response );
