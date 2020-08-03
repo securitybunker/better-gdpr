@@ -24,7 +24,7 @@ require_once('databunker-api.php');
 require_once('admin-user.php');
 
 
-function var_error_log( $object=null ){
+function bettergdpr_var_error_log( $object=null ){
     ob_start();                    // start buffer capture
     var_dump( $object );           // dump the values
     $contents = ob_get_contents(); // put the buffer into a variable
