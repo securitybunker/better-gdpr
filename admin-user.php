@@ -54,15 +54,14 @@ function bettergdpr_register_tenant($code, $site, $email, $subdomain) {
 function bettergdpr_show_admin_ui() {
 $xtoken = get_option( 'bettergdpr_xtoken', '' );
 $subdomain = get_option( 'bettergdpr_subdomain', '' );
+$service = "https://".$subdomain.".privacybunker.cloud/";
 $url = "https://".$subdomain.".privacybunker.cloud/site/admin-redirect.html?token=".$xtoken;
 
-# onload="this.style.height=(this.contentWindow.document.body.scrollHeight+20)+'px';"
 ?>
-<div style="width:100%;min-height: 1000px;position:relative;">
-<div style="position: absolute; top: 0px; left: 0px; right: 0px;bottom: 0px;">
-<iframe id="bettergdpr_iframe" src="<?php echo($url); ?>" style="height: 100%;width: 100%;"></iframe>
-</div>
-</div>
+<h3>Privacy Bunker Access</h3>
+<p>Admin access token: <?php echo($xtoken); ?></p>
+<p>Service url: <a target="_blank" href="<?php echo($service); ?>"><?php echo($service); ?></a></p>
+<p>Automatic login: <a target="_blank" href="<?php echo($url); ?>">click here</a></p>
 <?php
 }
 
