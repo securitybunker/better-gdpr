@@ -60,7 +60,7 @@ $url = "https://".$subdomain.".privacybunker.cloud/site/admin-redirect.html?toke
 
 ?>
 <script>
-function paranoidguy_copy_token() {
+function bettergdpr_copy_token() {
   const el = document.createElement('textarea');
   el.value = "<?php echo($xtoken); ?>";
   document.body.appendChild(el);
@@ -71,7 +71,7 @@ function paranoidguy_copy_token() {
 </script>
 <h3>Privacy Bunker Access</h3>
 <p>Admin access token for your website: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXX<?php echo($xtoken_end); ?>&nbsp;&nbsp;
-<span class="dashicons dashicons-clipboard" onclick="paranoidguy_copy_token();"></span>
+<span class="dashicons dashicons-clipboard" onclick="bettergdpr_copy_token();"></span>
 <p>Service url: <a target="_blank" href="<?php echo($service); ?>"><?php echo($service); ?></a></p>
 <p>One click login: <a target="_blank" href="<?php echo($url); ?>">click here</a></p>
 <?php
