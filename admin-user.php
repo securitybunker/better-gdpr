@@ -53,14 +53,25 @@ function bettergdpr_register_tenant($code, $site, $email, $subdomain) {
 
 function bettergdpr_show_admin_ui() {
 $xtoken = get_option( 'bettergdpr_xtoken', '' );
+$xtoken_end = substr($xtoken, -6);
 $subdomain = get_option( 'bettergdpr_subdomain', '' );
 $service = "https://".$subdomain.".privacybunker.cloud/";
 $url = "https://".$subdomain.".privacybunker.cloud/site/admin-redirect.html?token=".$xtoken;
 
 ?>
+<script>
+function paranoidguy_copy_token() {
+  const el = document.createElement('textarea');
+  el.value = "<?php echo($xtoken); ?>";
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+}
+</script>
 <h3>Privacy Bunker Access</h3>
-<p>Admin access token for your website*: <?php echo($xtoken); ?></p>
-<p>* Keep this value secret.</p>
+<p>Admin access token for your website: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXX<?php echo($xtoken_end); ?>&nbsp;&nbsp;
+<span class="dashicons dashicons-clipboard" onclick="paranoidguy_copy_token();"></span>
 <p>Service url: <a target="_blank" href="<?php echo($service); ?>"><?php echo($service); ?></a></p>
 <p>One click login: <a target="_blank" href="<?php echo($url); ?>">click here</a></p>
 <?php
