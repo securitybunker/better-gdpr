@@ -112,13 +112,9 @@ function bettergdpr_api_create_user($user) {
   $wordpress = $user->data;
   $email = $wordpress->user_email;
   $login = $wordpress->user_login;
-  unset($wordpress->user_email);
-  unset($wordpress->user_login);
-  unset($wordpress->user_pass);
   $data = array(
     'email' => $email,
-    'login' => $login,
-    'wordpress' => $wordpress);
+    'login' => $login);
   return bettergdpr_data_request('POST', "/v1/user", $data);
 }
 
@@ -126,13 +122,9 @@ function bettergdpr_api_update_user($old_email, $user) {
   $wordpress = $user->data;
   $email = $wordpress->user_email;
   $login = $wordpress->user_login;
-  unset($wordpress->user_email);
-  unset($wordpress->user_login);
-  unset($wordpress->user_pass);
   $data = array(
     'email' => $email,
-    'login' => $login,
-    'wordpress' => $wordpress);
+    'login' => $login);
   return bettergdpr_data_request('PUT', "/v1/user/email/$old_email", $data);
 }
 
