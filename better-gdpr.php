@@ -25,60 +25,80 @@ require_once('admin-user.php');
 
 
 function bettergdpr_var_error_log( $object=null ){
-    ob_start();                    // start buffer capture
-    var_dump( $object );           // dump the values
-    $contents = ob_get_contents(); // put the buffer into a variable
-    ob_end_clean();                // end capture
-    error_log( $contents );        // log contents of the result of var_dump( $object )
+  ob_start();                    // start buffer capture
+  var_dump( $object );           // dump the values
+  $contents = ob_get_contents(); // put the buffer into a variable
+  ob_end_clean();                // end capture
+  error_log( $contents );        // log contents of the result of var_dump( $object )
 }
 
 function bettergdpr_request_export($request) {
-	$auth = $request->get_header('authorization');
-	if (!$auth) {
-		return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
-	}
-	$email = $request["email"];
-	if (strpos($email, '@') !== true) {
-		$email = str_replace('%40', '@', $email);
-	}
-	$requests_query = new WP_Query(
-		array(
-			'post_type'     => 'user_request',
-			'post_name__in' => array( 'export_personal_data' ), // Action name stored in post_name column.
-			'title'	 => $email,	// Email address stored in post_title column.
-			'post_status'   => array(
-				'request-pending',
-				'request-confirmed',
-			),
-			'fields' => 'ids',
-		)
-	);
-	$request_id = 0;
-	if ( $requests_query->found_posts ) {
-		$request_id = $requests_query->posts[0];
-	} else {
-		$request = wp_create_user_request( $email, 'export_personal_data' );
-		$request_id = $request->ID;
-	}
-	//do_action( 'wp_privacy_personal_data_export_file', $request_id );
-	wp_privacy_generate_personal_data_export_file( $request_id );
-	$export_file_url = get_post_meta( $request_id, '_export_file_url', true );
-	error_log("**** after get_post_meta $export_file_url ");
-	header('Content-Type: application/json; charset=UTF-8');
-        echo('{"status":"ok","url":"'.$export_file_url.'"}');
-        exit();
-	#return $response;
+  $auth = $request->get_header('authorization');
+  if (!$auth) {
+    return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
+  }
+  $email = $request["email"];
+  if (strpos($email, '@') !== true) {
+    $email = str_replace('%40', '@', $email);
+  }
+  $user = get_user_by("email", $email);
+  if (!$user) {
+    return new WP_Error( 'not_found', 'user not found', array( 'status' => 404 ));
+  }
+  $data = json_encode($user->data);
+  header('Content-Type: application/json; charset=UTF-8');
+  echo('{"status":"ok","data":'+$data+'}');
+  exit();
 }
 
-// TODO: finish request auth
-/*
+function bettergdpr_request_full_export($request) {
+  $auth = $request->get_header('authorization');
+  if (!$auth) {
+    return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
+  }
+  $email = $request["email"];
+  if (strpos($email, '@') !== true) {
+    $email = str_replace('%40', '@', $email);
+  }
+  $requests_query = new WP_Query(
+    array(
+      'post_type'     => 'user_request',
+      'post_name__in' => array( 'export_personal_data' ), // Action name stored in post_name column.
+      'title'   => $email,  // Email address stored in post_title column.
+      'post_status'   => array(
+        'request-pending',
+        'request-confirmed',
+      ),
+      'fields' => 'ids',
+    )
+  );
+  $request_id = 0;
+  if ( $requests_query->found_posts ) {
+    $request_id = $requests_query->posts[0];
+  } else {
+    $request = wp_create_user_request( $email, 'export_personal_data' );
+    $request_id = $request->ID;
+  }
+  //do_action( 'wp_privacy_personal_data_export_file', $request_id );
+  wp_privacy_generate_personal_data_export_file( $request_id );
+  $export_file_url = get_post_meta( $request_id, '_export_file_url', true );
+  error_log("**** after get_post_meta $export_file_url ");
+  header('Content-Type: application/json; charset=UTF-8');
+  echo('{"status":"ok","url":"'.$export_file_url.'"}');
+  exit();
+  #return $response;
+}
+
 add_action('rest_api_init', function () {
-  register_rest_route( 'paranoidguy/v1', 'export/(?P<email>[\d\%\@\.\w]+)',array(
+  register_rest_route( 'bettergdpr/v1', 'export/(?P<email>[\d\%\@\.\w]+)',array(
     'methods'  => 'GET',
     'callback' => 'bettergdpr_request_export'
   ));
+  register_rest_route( 'bettergdpr/v1', 'fullexport/(?P<email>[\d\%\@\.\w]+)',array(
+    'methods'  => 'GET',
+    'callback' => 'bettergdpr_request_full_export'
+  ));
 });
-*/
 
 function bettergdpr_show_consents($page) {
   $options = bettergdpr_api_get_all_lbasis();
@@ -239,29 +259,29 @@ function bettergdpr_load_settings() {
       const oldCookie = bettergdpr_get_cookie('BETTERGDPR');
       if (oldCookie) {
         const briefs = oldCookie.split(',');
-	for (var index = 0; index < scripts.length; index++) {
+        for (var index = 0; index < scripts.length; index++) {
           var scriptObj = scripts[index];
           var found = false;
-	  if (briefs[0] === "all") {
+          if (briefs[0] === "all") {
              found = true;
-	  } else {
+          } else {
             for (var j = 0; j < briefs.length; j++) {
               if (scriptObj.briefs.includes(briefs[j])) {
                 found = true;
-	      }
-	    }
-	  }
-	  if (found == true) {
+              }
+            }
+          }
+          if (found == true) {
             if (scriptObj.script.startsWith("<script")) {
               var template = document.createElement('template');
-	      template.innerHTML = scriptObj.script;
-	      document.head.appendChild( template );
+              template.innerHTML = scriptObj.script;
+              document.head.appendChild( template );
             } else {
               var script = document.createElement( "script" );
               script.text = scriptObj.script;
-	      document.head.appendChild( script );
-	    }
-	  }
+              document.head.appendChild( script );
+            }
+          }
         }
       }
     }
@@ -273,9 +293,9 @@ function bettergdpr_set_cookie(name, briefs) {
   var expires = "";
   const days = 30;
   if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
-        expires = "; expires=" + date.toUTCString();
+    var date = new Date();
+    date.setTime(date.getTime() + (days*24*60*60*1000));
+    expires = "; expires=" + date.toUTCString();
   }
   var old = document.cookie;
   if (old) {
