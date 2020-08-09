@@ -33,8 +33,12 @@ function bettergdpr_var_error_log( $object=null ){
 }
 
 function bettergdpr_request_export($request) {
+  $sitekey = get_option( 'bettergdpr_sitekey', '' );
   $auth = $request->get_header('authorization');
-  if (!$auth) {
+  if (!$auth || strlen($sitekey) == 0) {
+    return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
+  }
+  if ($auth != "Bearer $sitekey") {
     return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
   }
   $email = $request["email"];
@@ -45,15 +49,21 @@ function bettergdpr_request_export($request) {
   if (!$user) {
     return new WP_Error( 'not_found', 'user not found', array( 'status' => 404 ));
   }
-  $data = json_encode($user->data);
+  $data = $user->data;
+  unset($data->user_pass);
+  $data = json_encode($data);
   header('Content-Type: application/json; charset=UTF-8');
-  echo('{"status":"ok","data":'+$data+'}');
+  echo($data);
   exit();
 }
 
 function bettergdpr_request_full_export($request) {
+  $sitekey = get_option( 'bettergdpr_sitekey', '' );
   $auth = $request->get_header('authorization');
-  if (!$auth) {
+  if (!$auth || strlen($sitekey) == 0) {
+    return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
+  }
+  if ($auth != "Bearer $sitekey") {
     return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
   }
   $email = $request["email"];

@@ -30,7 +30,9 @@ function bettergdpr_register_tenant($code, $site, $email, $subdomain) {
     return $result;
   }
   update_option('bettergdpr_subdomain', $subdomain);
+  update_option('bettergdpr_sitekey', $result->sitekey);
   update_option('bettergdpr_xtoken', $result->xtoken);
+
   # create processing operations
   # "integrate-advertising-networks"
   bettergdpr_api_create_pactivity("advertising-networks-user-tracking", "Ad Network User tracing", "Enable internal or 3rd party advertising / affiliate network scripts to use cookies to track users (tracking pixel) for remarketting; display targeted ads; etc...");
