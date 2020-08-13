@@ -96,7 +96,46 @@ function bettergdpr_request_full_export($request) {
   header('Content-Type: application/json; charset=UTF-8');
   echo('{"status":"ok","url":"'.$export_file_url.'"}');
   exit();
-  #return $response;
+}
+
+function bettergdpr_request_delete($request) {
+  $sitekey = get_option( 'bettergdpr_sitekey', '' );
+  $auth = $request->get_header('authorization');
+  if (!$auth || strlen($sitekey) == 0) {
+    return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
+  }
+  if ($auth != "Bearer $sitekey") {
+    return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
+  }
+  $email = $request["email"];
+  if (strpos($email, '@') !== true) {
+    $email = str_replace('%40', '@', $email);
+  }
+  $user = get_user_by("email", $email);
+  if (!$user) {
+    return new WP_Error( 'not_found', 'user not found', array( 'status' => 404 ));
+  }
+  $data = $user->data;
+  error_log($data);
+  $id = $data->ID;
+  //wp_delete_user
+  header('Content-Type: application/json; charset=UTF-8');
+  echo($data);
+  exit();
+}
+
+function bettergdpr_request_validate($request) {
+  $sitekey = get_option( 'bettergdpr_sitekey', '' );
+  $auth = $request->get_header('authorization');
+  if (!$auth || strlen($sitekey) == 0) {
+    return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
+  }
+  if ($auth != "Bearer $sitekey") {
+    return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
+  }
+  header('Content-Type: application/json; charset=UTF-8');
+  echo('{"status":"ok","valid":"valid"}');
+  exit();
 }
 
 add_action('rest_api_init', function () {
@@ -107,6 +146,14 @@ add_action('rest_api_init', function () {
   register_rest_route( 'bettergdpr/v1', 'fullexport/(?P<email>[\d\%\@\.\w]+)',array(
     'methods'  => 'GET',
     'callback' => 'bettergdpr_request_full_export'
+  ));
+  register_rest_route( 'bettergdpr/v1', 'delete/(?P<email>[\d\%\@\.\w]+)',array(
+    'methods'  => 'GET',
+    'callback' => 'bettergdpr_request_export'
+  ));
+  register_rest_route( 'bettergdpr/v1', 'validate', array(
+    'methods'  => 'GET',
+    'callback' => 'bettergdpr_request_validate'
   ));
 });
 
