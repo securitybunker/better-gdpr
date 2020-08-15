@@ -115,13 +115,14 @@ function bettergdpr_request_delete($request) {
   if (!$user) {
     return new WP_Error( 'not_found', 'user not found', array( 'status' => 404 ));
   }
-  $data = $user->data;
-  error_log($data);
-  $id = $data->ID;
-  //wp_delete_user
-  header('Content-Type: application/json; charset=UTF-8');
-  echo($data);
-  exit();
+  if ($user->data && $user->data->ID) {
+    $id = $user->data->ID;
+    wp_delete_user($id);
+    header('Content-Type: application/json; charset=UTF-8');
+    echo('{"status":"ok","deleted":"deleted"}');
+    exit();
+  }
+  return new WP_Error( 'not_found', 'user not found', array( 'status' => 404 ));
 }
 
 function bettergdpr_request_validate($request) {
@@ -149,7 +150,7 @@ add_action('rest_api_init', function () {
   ));
   register_rest_route( 'bettergdpr/v1', 'delete/(?P<email>[\d\%\@\.\w]+)',array(
     'methods'  => 'GET',
-    'callback' => 'bettergdpr_request_export'
+    'callback' => 'bettergdpr_request_delete'
   ));
   register_rest_route( 'bettergdpr/v1', 'validate', array(
     'methods'  => 'GET',
