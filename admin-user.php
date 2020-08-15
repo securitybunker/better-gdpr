@@ -58,7 +58,7 @@ $xtoken = get_option( 'bettergdpr_xtoken', '' );
 $xtoken_end = substr($xtoken, -6);
 $subdomain = get_option( 'bettergdpr_subdomain', '' );
 $service = "https://".$subdomain.".privacybunker.cloud/";
-$url = "https://".$subdomain.".privacybunker.cloud/site/admin-redirect.html?token=".$xtoken;
+$url = "https://".$subdomain.".privacybunker.cloud/site/admin-redirect.html#".$xtoken;
 
 ?>
 <script>
