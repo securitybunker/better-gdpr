@@ -1,8 +1,8 @@
 
-.paranoidguy_faded_body { overflow:hidden}
+.bettergdpr_faded_body { overflow:hidden}
 
 /* The switch - the box around the slider */
-#paranoidguy_settings_items .switch {
+#bettergdpr_settings_items .switch {
   position: relative;
   display: inline-block;
   width: 60px;
@@ -10,14 +10,14 @@
 }
 
 /* Hide default HTML checkbox */
-#paranoidguy_settings_items .switch input {
+#bettergdpr_settings_items .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
 /* The slider */
-#paranoidguy_settings_items .slider {
+#bettergdpr_settings_items .slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -29,7 +29,7 @@
   transition: .4s;
 }
 
-#paranoidguy_settings_items .slider:before {
+#bettergdpr_settings_items .slider:before {
   position: absolute;
   content: "";
   height: 26px;
@@ -41,46 +41,46 @@
   transition: .4s;
 }
 
-#paranoidguy_settings_items input:checked + .slider {
+#bettergdpr_settings_items input:checked + .slider {
   background-color: #2196F3;
 }
 
-#paranoidguy_settings_items input:focus + .slider {
+#bettergdpr_settings_items input:focus + .slider {
   box-shadow: 0 0 1px #2196F3;
 }
 
-#paranoidguy_settings_items input:checked + .slider:before {
+#bettergdpr_settings_items input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
 
 /* Rounded sliders */
-#paranoidguy_settings_items .slider.round {
+#bettergdpr_settings_items .slider.round {
   border-radius: 34px;
 }
 
-#paranoidguy_settings_items .slider.round:before {
+#bettergdpr_settings_items .slider.round:before {
   border-radius: 50%;
 }
 
-#paranoidguy_settings_items .r {
+#bettergdpr_settings_items .r {
   display: block;
   width: 100%;
   clear:both;
   padding-bottom: 10px;
 }
-#paranoidguy_settings_items .r p {
+#bettergdpr_settings_items .r p {
   font-style:italic;
 }
-#paranoidguy_settings_items .h {
+#bettergdpr_settings_items .h {
   display:inline-block;
   width: 86%;
   padding: 0;
   margin:0;
   font-weight: bold;
 }
-#paranoidguy_settings_items .c {
+#bettergdpr_settings_items .c {
   float:right;
   display:inline-block;
   text-align:center;
@@ -88,7 +88,7 @@
   padding: 0;
   margin:0;
 }
-#paranoidguy_settings_page {
+#bettergdpr_settings_page {
   box-shadow: 20px 20px 40px 1px #656565;
   margin: 0 auto;
   max-width:80%;
@@ -99,21 +99,21 @@
   overflow:auto;
   border:1px solid #222;
 }
-#paranoidguy_settings_page p {
+#bettergdpr_settings_page p {
   font-size:14px;
   line-height:18px;
 }
-#paranoidguy_settings_page h3, h4 {
+#bettergdpr_settings_page h3, h4 {
   padding-top:10px;
   padding-bottom: 10px;
   margin:0;
   font-size: 26px;
 }
-#paranoidguy_settings_page h4 {
+#bettergdpr_settings_page h4 {
   padding-top: 30px;
   padding-bottom: 20px;
   font-size: 22px;
 }
-#paranoidguy_settings_page button {
+#bettergdpr_settings_page button {
 text-decoration:none;font-weight: 400;text-transform: uppercase;cursor: pointer;background-color: #2196F3;min-width: 160px;min-height: 33px;margin: 0;padding: .5rem 1rem;font-size: 1.3rem;color: #fff;border: none;border-radius: 3px;outline: none;
 }

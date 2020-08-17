@@ -266,6 +266,7 @@ function bettergdpr_show_cookie_settings_popup() {
   var style = document.getElementById('bettergdpr_style_body');
   if (!style) {
     style = document.createElement('link');
+    style.rel = 'stylesheet';
     style.type = 'text/css';
     style.rel = "stylesheet";
     style.id = 'bettergdpr_style_body';
@@ -285,7 +286,7 @@ function bettergdpr_show_cookie_settings_popup() {
       settings.style.display = "block";
     }
     bettergdpr_show_cookie_settings();
-  }, 100);
+  }, 500);
 }
 function bettergdpr_close_cookie_settings_popup() {
   var body = document.getElementsByTagName('body');
