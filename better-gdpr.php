@@ -116,6 +116,7 @@ function bettergdpr_request_delete($request) {
     return new WP_Error( 'not_found', 'user not found', array( 'status' => 404 ));
   }
   if ($user->data && $user->data->ID) {
+    require_once(ABSPATH.'/wp-admin/includes/user.php');
     $id = $user->data->ID;
     wp_delete_user($id);
     header('Content-Type: application/json; charset=UTF-8');
@@ -123,6 +124,28 @@ function bettergdpr_request_delete($request) {
     exit();
   }
   return new WP_Error( 'not_found', 'user not found', array( 'status' => 404 ));
+}
+
+function bettergdpr_request_change_email($request) {
+  $sitekey = get_option( 'bettergdpr_sitekey', '' );
+  $auth = $request->get_header('authorization');
+  if (!$auth || strlen($sitekey) == 0) {
+    return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
+  }
+  if ($auth != "Bearer $sitekey") {
+    return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
+  }
+  $email = $request["email"];
+  if (strpos($email, '@') !== true) {
+    $email = str_replace('%40', '@', $email);
+  }
+  $user = get_user_by("email", $email);
+  if (!$user) {
+    return new WP_Error( 'not_found', 'user not found', array( 'status' => 404 ));
+  }
+    header('Content-Type: application/json; charset=UTF-8');
+    echo('{"status":"ok","deleted":"deleted"}');
+    exit();
 }
 
 function bettergdpr_request_validate($request) {
@@ -139,24 +162,31 @@ function bettergdpr_request_validate($request) {
   exit();
 }
 
-add_action('rest_api_init', function () {
-  register_rest_route( 'bettergdpr/v1', 'export/(?P<email>[\d\%\@\.\w]+)',array(
-    'methods'  => 'GET',
-    'callback' => 'bettergdpr_request_export'
-  ));
-  register_rest_route( 'bettergdpr/v1', 'fullexport/(?P<email>[\d\%\@\.\w]+)',array(
-    'methods'  => 'GET',
-    'callback' => 'bettergdpr_request_full_export'
-  ));
-  register_rest_route( 'bettergdpr/v1', 'delete/(?P<email>[\d\%\@\.\w]+)',array(
-    'methods'  => 'GET',
-    'callback' => 'bettergdpr_request_delete'
-  ));
-  register_rest_route( 'bettergdpr/v1', 'validate', array(
-    'methods'  => 'GET',
-    'callback' => 'bettergdpr_request_validate'
-  ));
-});
+$bettergdpr_sitekey = get_option( 'bettergdpr_sitekey', '' );
+if ($bettergdpr_sitekey) {
+  add_action('rest_api_init', function () {
+    register_rest_route( 'bettergdpr/v1', 'export/(?P<email>[\d\%\@\.\w]+)',array(
+      'methods'  => 'GET',
+      'callback' => 'bettergdpr_request_export'
+    ));
+    register_rest_route( 'bettergdpr/v1', 'fullexport/(?P<email>[\d\%\@\.\w]+)',array(
+      'methods'  => 'GET',
+      'callback' => 'bettergdpr_request_full_export'
+    ));
+    register_rest_route( 'bettergdpr/v1', 'delete/(?P<email>[\d\%\@\.\w]+)',array(
+      'methods'  => 'GET',
+      'callback' => 'bettergdpr_request_delete'
+    ));
+    register_rest_route( 'bettergdpr/v1', 'changemail/(?P<email>[\d\%\@\.\w]+)',array(
+      'methods'  => 'POST',
+      'callback' => 'bettergdpr_request_change_email'
+    ));
+    register_rest_route( 'bettergdpr/v1', 'validate', array(
+      'methods'  => 'GET',
+      'callback' => 'bettergdpr_request_validate'
+    ));
+  });
+}
 
 function bettergdpr_show_consents($page) {
   $options = bettergdpr_api_get_all_lbasis();
