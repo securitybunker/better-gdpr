@@ -87,7 +87,9 @@ function bettergdpr_request_full_export($request) {
     $request_id = $requests_query->posts[0];
   } else {
     $request = wp_create_user_request( $email, 'export_personal_data' );
+    error_log($request);
     $request_id = $request->ID;
+    sleep(1);
   }
   //do_action( 'wp_privacy_personal_data_export_file', $request_id );
   wp_privacy_generate_personal_data_export_file( $request_id );
@@ -143,9 +145,15 @@ function bettergdpr_request_change_email($request) {
   if (!$user) {
     return new WP_Error( 'not_found', 'user not found', array( 'status' => 404 ));
   }
-    header('Content-Type: application/json; charset=UTF-8');
-    echo('{"status":"ok","deleted":"deleted"}');
-    exit();
+  $new_email = $request["newemail"];
+  if (strpos($new_email, '@') !== true) {
+    $new_email = str_replace('%40', '@', $new_email);
+  }
+  $user->user_email = $new_email;
+  wp_update_user($user);
+  header('Content-Type: application/json; charset=UTF-8');
+  echo('{"status":"ok","changed":"changed"}');
+  exit();
 }
 
 function bettergdpr_request_validate($request) {
