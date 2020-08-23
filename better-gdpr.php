@@ -296,6 +296,7 @@ function bettergdpr_cookie_consent() {
 $subdomain = get_option( 'bettergdpr_subdomain', '' );
 $srv = "https://".$subdomain.".privacybunker.cloud/";
 $css_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/better-gdpr.css';
+$logo_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/logo.png';
 
 # body.faded {overflow:hidden}
 ?>
@@ -474,7 +475,11 @@ bettergdpr_load_settings();
   <div style="position:absolute; top:20px; right:20px; background: transparent;cursor: pointer;color:#fff;font-family: 'Helvetica', 'Arial', sans-serif;font-size: 2em;font-weight: 400;text-align: center;width: 40px;height: 40px;border-radius: 5px;margin: 0 auto;" onclick="bettergdpr_close_cookie_settings_popup()">X</div>
   <div style="display:block;height:10%;">&nbsp;</div>
   <div id="bettergdpr_settings_page">
-  <h3>Privacy settings</h3>
+  <div style="display:block;">
+  <h3 style="float:left;">Privacy settings</h3>
+  <div style="float:right;"><a target="_blank" href="https://paranoidguy.com/"><img width=200 src="<?php echo($logo_file); ?>" /></a></div>
+  <div style="clear: both;"></div>
+  </div>
   <p>When you visit any website, it may store or retrieve information on your browser, mostly in the form of cookies. This information might be about you, your preferences or your device and is mostly used to make the site work as you expect it to. The information does not usually directly identify you, but it can give you a more personalized web experience. Because we respect your right to privacy, you can choose not to allow some types of cookies. Click on the different category headings to find out more and change our default settings. However, blocking some types of cookies may impact your experience of the site and the services we are able to offer.</p>
   <center><button onclick='bettergdpr_allow_all_cookies();'>Allow All</button></center>
   <h4>Manage individual settings</h4>
