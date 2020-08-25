@@ -80,11 +80,16 @@ function bettergdpr_copy_token() {
 }
 
 function my_load_scripts($hook) {
-  // create my own version codes
-  $my_js_ver  = date("ymd-Gis", filemtime( plugin_dir_path( __FILE__ ) . 'wizard.js' ));
-  $my_css_ver  = date("ymd-Gis", filemtime( plugin_dir_path( __FILE__ ) . 'wizard.css' ));
-  wp_enqueue_script( 'wizard_js', plugins_url( 'wizard.js', __FILE__ ), array(), $my_js_ver );
-  wp_enqueue_style( 'wizard_css', plugins_url( 'wizard.css', __FILE__ ), array(), $my_css_ver );
+  $subdomain = get_option( 'bettergdpr_subdomain', '' );
+  if ($subdomain) {
+    $service = "https://".$subdomain.".privacybunker.cloud/";
+    //$my_js_ver  = date("ymd-Gis", filemtime( plugin_dir_path( __FILE__ ) . 'wizard.js' ));
+    //$my_css_ver  = date("ymd-Gis", filemtime( plugin_dir_path( __FILE__ ) . 'wizard.css' ));
+    //wp_enqueue_script( 'wizard_js', plugins_url( 'wizard.js', __FILE__ ), array(), $my_js_ver );
+    //wp_enqueue_style( 'wizard_css', plugins_url( 'wizard.css', __FILE__ ), array(), $my_css_ver );
+    wp_enqueue_script( 'wizard_js', $service.'site/wizard.js',  array(), '3', true);
+    wp_enqueue_style( 'wizard_css', $service.'site/wizard.css', 'all');
+  }
 }
 add_action('admin_enqueue_scripts', 'my_load_scripts');
 
@@ -96,9 +101,11 @@ $service = "https://".$subdomain.".privacybunker.cloud/";
 <div class="better-gdpr-admin">
 <div id='bettergdpr-wizard'></div>
 <script type="text/javascript">
-  loadBettergdprSettings('<?php echo($xtoken); ?>','<?php echo($service); ?>', 'v1/account/technologies');
-  loadBettergdprSettings('<?php echo($xtoken); ?>','<?php echo($service); ?>', 'v1/account/objectives');
+jQuery( document ).ready(function() {
+  loadBettergdprSettings('<?php echo($xtoken); ?>', '<?php echo($service); ?>', 'v1/account/technologies');
+  loadBettergdprSettings('<?php echo($xtoken); ?>', '<?php echo($service); ?>', 'v1/account/objectives');
   showWizardPage('objectives');
+});
 </script>
 </div>
 <!--
