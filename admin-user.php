@@ -79,6 +79,34 @@ function bettergdpr_copy_token() {
 <?php
 }
 
+function my_load_scripts($hook) {
+  // create my own version codes
+  $my_js_ver  = date("ymd-Gis", filemtime( plugin_dir_path( __FILE__ ) . 'wizard.js' ));
+  $my_css_ver  = date("ymd-Gis", filemtime( plugin_dir_path( __FILE__ ) . 'wizard.css' ));
+  wp_enqueue_script( 'wizard_js', plugins_url( 'wizard.js', __FILE__ ), array(), $my_js_ver );
+  wp_enqueue_style( 'wizard_css', plugins_url( 'wizard.css', __FILE__ ), array(), $my_css_ver );
+}
+add_action('admin_enqueue_scripts', 'my_load_scripts');
+
+function bettergdpr_wizard_page() {
+$xtoken = get_option( 'bettergdpr_xtoken', '' );
+$subdomain = get_option( 'bettergdpr_subdomain', '' );
+$service = "https://".$subdomain.".privacybunker.cloud/";
+?>
+<div class="better-gdpr-admin">
+<div id='bettergdpr-wizard'></div>
+<script type="text/javascript">
+  loadBettergdprSettings('<?php echo($xtoken); ?>','<?php echo($service); ?>', 'v1/account/technologies');
+  loadBettergdprSettings('<?php echo($xtoken); ?>','<?php echo($service); ?>', 'v1/account/objectives');
+  showWizardPage('objectives');
+</script>
+</div>
+<!--
+	<script type="text/javascript" src="/wp-content/plugins/better-gdpr/objectives.js?aaa">
+-->
+<?php
+}
+
 function bettergdpr_setup_page() {
   $account_email = get_settings('admin_email');
   $site = get_settings('siteurl');
@@ -97,7 +125,8 @@ function bettergdpr_setup_page() {
     $code = sanitize_text_field($_POST["code"]);
     $result = bettergdpr_register_tenant($code, $site, $account_email, $subdomain);
     if ($result->status == "ok") {
-      bettergdpr_show_admin_ui();
+      //bettergdpr_show_admin_ui();
+      bettergdpr_wizard_page();
       return;
     } else {
       $errmsg = $result->error;
@@ -105,6 +134,7 @@ function bettergdpr_setup_page() {
       $step = 1;
     }
   }
+  $logo_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/logo.png';
 ?>
 <script>
 function bettergdpr_validate_subdomain(obj) {
@@ -179,15 +209,15 @@ function submit_step2(form) {
 <div style="clear:both;"></div>
 <center>
 <div style="margin:0 auto;width:500px; border:5px solid #51859B;border-radius: 7px;background:#EEE;">
-<div class="header" style="background-color: #0179AB;">
-<img alt="Logo" src="https://paranoidguy.com/logo.png" style="padding:20px;"/>
+<div class="header" style="">
+<img alt="Logo" src="<?php echo($logo_file); ?>" width=200 style="padding:20px;"/>
 </div>
 <div style="padding:10px;text-align:left;">
  <h2 style="padding:0 0 5px 0;margin:0;">Start with plugin activation</h2>
  <div id="bettergdpr_error" class="error" style="<?php echo($errstyle); ?>"><?php echo($errmsg); ?></div>
  <div style="display:block;height:20px;"></div>
  <form id="bettergdpr_step0" accept-charset="UTF-8" method="post" action="#" style="display:<?php echo(($step==0)?"block":"none")?>;">
-   <i>Type your email address bellow to activate your Privacybunker.cloud account.</i>
+   <i>Type your email address bellow to activate your account.</i>
    <div class="form-item" id="edit-mail-wrapper" style="padding-top:10px;">
      <label for="edit-mail" style="float:left;padding-top:6px;">E-mail address:</label>
      <input type="text" maxlength="54" name="account_email" id="edit-mail" size="50" value="<?php echo $account_email; ?>" style="float:right;width:315px;" />
