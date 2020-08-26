@@ -72,10 +72,12 @@ function bettergdpr_copy_token() {
 }
 </script>
 <h3>Privacy Bunker Access</h3>
+<p style="font-size:130%;">One click access: <a target="_blank" href="<?php echo($url); ?>">click here</a></p>
+<p>&nbsp;<p>
 <p>Admin access token for your website: XXXXXXXX-XXXX-XXXXXX<?php echo($xtoken_end); ?>&nbsp;&nbsp;
 <span class="dashicons dashicons-clipboard" onclick="bettergdpr_copy_token();"></span>
-<p>Service url: <a target="_blank" href="<?php echo($service); ?>"><?php echo($service); ?></a></p>
-<p>One click login: <a target="_blank" href="<?php echo($url); ?>">click here</a></p>
+<p>Privacy Bunker Service url: <a target="_blank" href="<?php echo($service); ?>"><?php echo($service); ?></a></p>
+<p>If you have any questions you can contact us at <u>onboarding@paranoidguy.com</u></p>
 <?php
 }
 
@@ -107,6 +109,7 @@ jQuery( document ).ready(function() {
   showWizardPage('objectives');
 });
 </script>
+<center><p>If you have any questions you can contact us at <u>onboarding@paranoidguy.com</u></p></center>
 </div>
 <!--
 	<script type="text/javascript" src="/wp-content/plugins/better-gdpr/objectives.js?aaa">

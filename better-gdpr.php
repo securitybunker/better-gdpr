@@ -382,6 +382,27 @@ function bettergdpr_load_settings() {
           }
         }
       }
+      const popupConf = bettergdpr_settings_data.ui;
+      if (popupConf.EnablePopup) {
+        if (!oldCookie) {
+	  var banner = document.getElementById('bettergdpr_cookie_banner');
+          if (banner) {
+	    banner.style.visibility = "visible";
+            var obj = document.getElementById('PopupMessage');
+	    if (obj) {
+              obj.innerHTML = popupConf.PopupMessage;
+	    }
+	    obj = document.getElementById('CustomPopupTitle')
+            if (obj) {
+              obj.innerHTML = popupConf.CustomPopupTitle;
+	    }
+	    obj = document.getElementById('CustomPopupDescription')
+            if (obj) {
+              obj.innerHTML = popupConf.CustomPopupDescription;
+            }
+          }
+        }
+      }
     }
   };
   xhr0.send();
@@ -432,7 +453,7 @@ function bettergdpr_show_cookie_settings() {
     out = out + '<div class="c"><label class="switch"><input type="checkbox" checked '+locked+' name="'+r["brief"]+'"><span class="slider round"></span></label></div>';
     out = out + '<p>'+r["fulldesc"]+'</p>';
     out = out + '</div>';
-    console.log(r);
+    //console.log(r);
   }
   var page = document.getElementById('bettergdpr_settings_items');
   page.innerHTML = out;
@@ -476,11 +497,11 @@ bettergdpr_load_settings();
   <div style="display:block;height:10%;">&nbsp;</div>
   <div id="bettergdpr_settings_page">
   <div style="display:block;">
-  <h3 style="float:left;">Privacy settings</h3>
+  <h3 id="CustomPopupTitle" style="float:left;"></h3>
   <div style="float:right;"><a target="_blank" href="https://paranoidguy.com/"><img width=200 src="<?php echo($logo_file); ?>" /></a></div>
   <div style="clear: both;"></div>
   </div>
-  <p>When you visit any website, it may store or retrieve information on your browser, mostly in the form of cookies. This information might be about you, your preferences or your device and is mostly used to make the site work as you expect it to. The information does not usually directly identify you, but it can give you a more personalized web experience. Because we respect your right to privacy, you can choose not to allow some types of cookies. Click on the different category headings to find out more and change our default settings. However, blocking some types of cookies may impact your experience of the site and the services we are able to offer.</p>
+  <p id="CustomPopupDescription"></p>
   <center><button onclick='bettergdpr_allow_all_cookies();'>Allow All</button></center>
   <h4>Manage individual settings</h4>
   <div id="bettergdpr_settings_items"></div>
@@ -488,24 +509,13 @@ bettergdpr_load_settings();
   </div>
 </div>
 <div id="bettergdpr_cookie_banner" style="visibility:hidden;background-color:rgba(71,81,84,.95);box-shadow: 0 -8px 20px 0 rgba(0,0,0,.2);width:100%;margin:0 auto;padding:5px;font-size: 1em;color: #6d6d6d;bottom:0px;position:fixed;left: 0px;opacity:0.9;filter:alpha(opacity=80);height:auto;max-height:500px;z-index:9999999999;overflow:hidden;">
-<div style="float:left;color:#fff;width: calc(100% - 200px);padding:10px;">
-This site uses cookies and related technologies for site operation, analytics, and third party
-advertising purposes as described in our Privacy and Data Processing Policy. You may choose to consent
- to our use of these technologies, reject non-essential technologies, or further manage your preferences.
-</div>
+<div id='PopupMessage' style="float:left;color:#fff;width: calc(100% - 200px);padding:10px;"></div>
 <div style="float:left;width:200px;margin:0 auto;text-align:center;vertical-align: middle;padding-top:15px;">
 <button style="text-decoration:none;font-weight: 400;text-transform: uppercase;cursor: pointer;background-color: #2eb8ff;min-width: 160px;min-height: 33px;margin: 0;padding: .5rem 1rem;font-size: 1.3rem;color: #fff;border: none;border-radius: 3px;outline: none;" onclick='bettergdpr_allow_all_cookies();'>I agree&nbsp;<span style="font-weight: 700;style:inline-block;height:25px;">✓</span></button>
 <button style="text-decoration:none;font-weight: 400;text-transform: uppercase;background-color:transparent;cursor: pointer;min-width: 160px;min-height: 30px;margin: 5px 0 0 0;padding: .5rem 1rem;font-size: 1.1rem;color: #fff;border: 1px solid #fff;border-radius: 3px;outline: none;" onclick='bettergdpr_allow_required_cookies();'>Required only</button>
-<div style="display:block;padding:0;margin:0;"><a style="color:#fff;font-weight: 400;background-color:transparent;cursor: pointer;font-size:1rem;" href="#" onclick="bettergdpr_show_cookie_settings_popup();">Customize settings</a></div>
+<div style="display:block;padding:0;margin:0;"><u style="color:#fff;font-weight: 400;background-color:transparent;cursor: pointer;font-size:1rem;" onclick="bettergdpr_show_cookie_settings_popup();">Customize settings</u></div>
 </div>
 </div>
-<script>
-const oldCookie = bettergdpr_get_cookie('BETTERGDPR');
-if (!oldCookie) {
-  var banner = document.getElementById('bettergdpr_cookie_banner');
-  banner.style.visibility = "visible";
-}
-</script>
 <?php
 }
 
