@@ -52,6 +52,10 @@ function bettergdpr_data_request($method, $url, $data) {
 }
 
 
+function bettergdpr_api_get_account_standing() {
+  return bettergdpr_get_request("/v1/account/standing");
+}
+
 function bettergdpr_api_get_user($method, $address) {
   $result = bettergdpr_get_request("/v1/user/".$method."/".$address);
   return $result;

@@ -59,7 +59,26 @@ $xtoken_end = substr($xtoken, -6);
 $subdomain = get_option( 'bettergdpr_subdomain', '' );
 $service = "https://".$subdomain.".privacybunker.cloud/";
 $url = "https://".$subdomain.".privacybunker.cloud/site/admin-redirect.html#".$xtoken;
-
+$info = bettergdpr_api_get_account_standing();
+$standing = "";
+if ($info && $info->status == "ok") {
+  if ($info->standing && $info->standing != "") {
+    $standing = $info->standing;
+  }
+}
+if ($standing == "" || $standing == "deleted") {
+?>
+<div class="better-gdpr-admin">
+<div id='bettergdpr-wizard'></div>
+<script type="text/javascript">
+jQuery( document ).ready(function() {
+  showWizardPage('end');
+});
+</script>
+</div>
+<?php
+  return;
+}
 ?>
 <script>
 function bettergdpr_copy_token() {
@@ -111,9 +130,6 @@ jQuery( document ).ready(function() {
 </script>
 <center><p>If you have any questions you can contact us at <u>onboarding@paranoidguy.com</u></p></center>
 </div>
-<!--
-	<script type="text/javascript" src="/wp-content/plugins/better-gdpr/objectives.js?aaa">
--->
 <?php
 }
 
