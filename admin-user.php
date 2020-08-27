@@ -130,8 +130,8 @@ $service = "https://".$subdomain.".privacybunker.cloud/";
 <script type="text/javascript">
 alert(1);
 jQuery( document ).ready(function() {
-  loadBettergdprSettings('<?php echo($xtoken); ?>', '<?php echo($service); ?>', 'v1/account/technologies');
-  loadBettergdprSettings('<?php echo($xtoken); ?>', '<?php echo($service); ?>', 'v1/account/objectives');
+  bettergdprLoadSettings('<?php echo($xtoken); ?>', '<?php echo($service); ?>', 'v1/account/technologies');
+  bettergdprLoadSettings('<?php echo($xtoken); ?>', '<?php echo($service); ?>', 'v1/account/objectives');
   bettergdprShowWizardPage('objectives');
 });
 </script>
