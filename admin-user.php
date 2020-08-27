@@ -128,7 +128,6 @@ $service = "https://".$subdomain.".privacybunker.cloud/";
 <div class='better-gdpr-admin'>
 <div id='bettergdpr-wizard'>&nbsp;</div>
 <script type="text/javascript">
-alert(1);
 jQuery( document ).ready(function() {
   bettergdprLoadSettings('<?php echo($xtoken); ?>', '<?php echo($service); ?>', 'v1/account/technologies');
   bettergdprLoadSettings('<?php echo($xtoken); ?>', '<?php echo($service); ?>', 'v1/account/objectives');
