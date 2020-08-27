@@ -66,13 +66,15 @@ if ($info && $info->status == "ok") {
     $standing = $info->standing;
   }
 }
-if ($standing == "" || $standing == "deleted") {
+if ($standing == "" or $standing == "deleted") {
 ?>
-<div class="better-gdpr-admin">
-<div id='bettergdpr-wizard'></div>
+<script type='text/javascript' src='<?php echo($service); ?>/site/wizard.js' ></script>
+<link rel='stylesheet' type='text/css' media='all' href='<?php echo($service); ?>/site/wizard.css' />
+<div class='better-gdpr-admin'>
+<div id='bettergdpr-wizard'>&nbsp;</div>
 <script type="text/javascript">
 jQuery( document ).ready(function() {
-  showWizardPage('end');
+  bettergdprShowWizardPage('end');
 });
 </script>
 </div>
@@ -100,6 +102,7 @@ function bettergdpr_copy_token() {
 <?php
 }
 
+/*
 function my_load_scripts($hook) {
   $subdomain = get_option( 'bettergdpr_subdomain', '' );
   if ($subdomain) {
@@ -113,19 +116,23 @@ function my_load_scripts($hook) {
   }
 }
 add_action('admin_enqueue_scripts', 'my_load_scripts');
+*/
 
 function bettergdpr_wizard_page() {
 $xtoken = get_option( 'bettergdpr_xtoken', '' );
 $subdomain = get_option( 'bettergdpr_subdomain', '' );
 $service = "https://".$subdomain.".privacybunker.cloud/";
 ?>
-<div class="better-gdpr-admin">
-<div id='bettergdpr-wizard'></div>
+<script type='text/javascript' src='<?php echo($service); ?>/site/wizard.js' ></script>
+<link rel='stylesheet' type='text/css' media='all' href='<?php echo($service); ?>/site/wizard.css' />
+<div class='better-gdpr-admin'>
+<div id='bettergdpr-wizard'>&nbsp;</div>
 <script type="text/javascript">
+alert(1);
 jQuery( document ).ready(function() {
   loadBettergdprSettings('<?php echo($xtoken); ?>', '<?php echo($service); ?>', 'v1/account/technologies');
   loadBettergdprSettings('<?php echo($xtoken); ?>', '<?php echo($service); ?>', 'v1/account/objectives');
-  showWizardPage('objectives');
+  bettergdprShowWizardPage('objectives');
 });
 </script>
 <center><p>If you have any questions you can contact us at <u>onboarding@paranoidguy.com</u></p></center>
