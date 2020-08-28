@@ -166,7 +166,7 @@ function bettergdpr_setup_page() {
       $step = 1;
     }
   }
-  $logo_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/logo.png';
+  $logo_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/assets/logo.png';
 ?>
 <script>
 function bettergdpr_validate_subdomain(obj) {

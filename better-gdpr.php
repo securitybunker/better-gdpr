@@ -296,7 +296,7 @@ function bettergdpr_cookie_consent() {
 $subdomain = get_option( 'bettergdpr_subdomain', '' );
 $srv = "https://".$subdomain.".privacybunker.cloud/";
 $css_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/better-gdpr.css';
-$logo_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/logo.png';
+$logo_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/assets/logo.png';
 
 # body.faded {overflow:hidden}
 ?>
