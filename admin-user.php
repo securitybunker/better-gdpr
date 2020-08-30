@@ -333,10 +333,17 @@ function bettergdpr_add_consents_column( $column_headers ) {
   return $column_headers;
 }
 
+function bettergdpr_uninstall() {
+  delete_option('bettergdpr_subdomain');
+  delete_option('bettergdpr_xtoken');
+  delete_option('bettergdpr_sitekey');
+}
+
 function bettergdpr_init_admin() {
   add_action('admin_menu', 'bettergdpr_admin_menu');
   // add column to the list of users to display list of given consents
   // it is available at /wp-admin/users.php
   add_filter( 'manage_users_custom_column', 'bettergdpr_get_user_consents', 10, 6 );
   add_filter( 'manage_users_columns', 'bettergdpr_add_consents_column' );
+  register_uninstall_hook( __FILE__, bettergdpr_uninstall);
 }
