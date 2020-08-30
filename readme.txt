@@ -3,7 +3,7 @@ Contributors: stremovsky
 Donate link: https://paranoidguy.com/
 Tags: gdpr, privacy, cookie-consent
 Requires at least: 4.7
-Tested up to: 5.4
+Tested up to: 5.5
 Stable tag: 4.3
 Requires PHP: 7.0
 License: GPLv3
@@ -65,16 +65,19 @@ If configured, upon user profile change, Databunker can automatically sync user 
 
 If a user is deleted, the service can be configured to automatically delete user records from all SAAS services.
 
+
 == Frequently Asked Questions ==
 
 = Do you plan supporting other languages? =
 
 Yes. We are planning to add multiple languages in the nearest future.
 
+
 == Screenshots ==
 
 1. BetterGDPR Solution Architecture
 2. Advanced Cookie Consent Screen
+
 
 == Changelog ==
 
