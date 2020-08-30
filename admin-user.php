@@ -345,5 +345,5 @@ function bettergdpr_init_admin() {
   // it is available at /wp-admin/users.php
   add_filter( 'manage_users_custom_column', 'bettergdpr_get_user_consents', 10, 6 );
   add_filter( 'manage_users_columns', 'bettergdpr_add_consents_column' );
-  register_uninstall_hook( __FILE__, bettergdpr_uninstall);
+  register_uninstall_hook( __FILE__, 'bettergdpr_uninstall');
 }
