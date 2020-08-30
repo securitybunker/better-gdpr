@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: stremovsky
 Donate link: https://paranoidguy.com/
-Tags: gdpr, privacy, cookie-consent
+Tags: gdpr, privacy, privacy-tools, compliance, cookie-consent
 Requires at least: 4.7
 Tested up to: 5.5
 Stable tag: 4.3
@@ -9,7 +9,7 @@ Requires PHP: 7.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
-GDPR & Cookie Consent plugin built by ParanoidGuy.com team.
+GDPR Automation & Cookie Consent plugin built by ParanoidGuy.com team.
 
 == Description ==
 
