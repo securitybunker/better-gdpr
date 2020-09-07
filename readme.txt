@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: stremovsky
 Donate link: https://paranoidguy.com/
-Tags: gdpr, privacy, privacy-tools, compliance, cookie-consent
+Tags: gdpr, privacy, privacy-tools, compliance, cookie-consent, security, cookie-banner, GDPR-compliance, general-data-protection-regulation, law, saas, regulations
 Requires at least: 4.7
 Tested up to: 5.5
 Stable tag: 4.3
