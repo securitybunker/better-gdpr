@@ -13,7 +13,7 @@ GDPR Automation & Cookie Consent plugin built by ParanoidGuy.com team.
 
 == Description ==
 
-Better-GDPR is GDPR automation service built by <a target='_blank' href='https://paranoidguy.com/'>ParanoidGuy.com team</a>. In addition to regular services like cookie consent and GDPR user request management, the plugin knows to automatically sync user records with different cloud SAAS service. For example Mailchimp, GetResponse, Hubspot, SAP, Salesforce, etc...
+Better-GDPR is a GDPR automation service built by the <a target='_blank' href='https://paranoidguy.com/'>ParanoidGuy.com team</a>. In addition to regular services like cookie consent and GDPR user request management, the plugin knows to automatically sync user records with different cloud SAAS services. For example Mailchimp, GetResponse, Hubspot, SAP, Salesforce, etc...
 
 = Plugin main advantages: =
 
@@ -30,7 +30,7 @@ Under the hood, user consent categories are saved in a special cookie called: "B
 
 = 2. Simple Integration =
 
-BetterGDPR plugin does not change your database structure, nor it does not create any additional tables to store user consent values. Instead, the plugin will open for your site a tenant subdomain at PrivacyBunker.cloud - a service build and maintained by the PranoidGuy.com team. This domain will be a privacy portal for your users.
+BetterGDPR plugin does not change your database structure, nor it does not create any additional tables. Instead, the plugin will open for your site a tenant subdomain at PrivacyBunker.cloud - a service build and maintained by the **PranoidGuy.com team**. This domain will be used as a privacy portal for your users.
 
 What are the advantages of this architecture:
 
@@ -59,7 +59,7 @@ If configured, upon user profile change, Databunker can automatically sync user 
 4. Salesforce
 5. Etc...
 
-If a user is deleted, the service can be configured to automatically delete user records from all SAAS services.
+If a user is deleted, the service can be configured to automatically delete user records from specific SAAS services.
 
 
 == Frequently Asked Questions ==
