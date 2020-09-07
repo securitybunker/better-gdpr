@@ -24,24 +24,24 @@ Better-GDPR is GDPR automation service built by <a target='_blank' href='https:/
 
 = 1. GDPR compliant cookie consent plugin =
 
-It is very similar to other cookie consent popup plugins. The main difference between most of the similar tools is that we inject not-required components (javascript) only after we got actual user consent. For example, Advertising related javascript code will be injected after the user gave us Advertising consent. You will need to specify actual javascript code to inject (i.e. Facebook pixel) under specific categories using our management tool.
+It is very similar to other cookie consent popup plugins. The main difference between most of the similar tools is that we inject not-required components (JavaScript) only after we got actual user consent. For example, Advertising related JavaScript code will be injected after the user gave us Advertising consent. You will need to specify actual JavaScript code to inject (i.e. Facebook pixel) under specific categories using our management tool.
 
-Under the hood, user consent categories are saved in a special cookie called: "BETTERGDPR". So, when the page loads, for the user, for the first time in a session, we check the value of the "BETTERGDPR" cookie value and inject approved javascript code. If it is a new user, we will show the user our cookie consent popup.
+Under the hood, user consent categories are saved in a special cookie called: "BETTERGDPR". So, when the page loads, for the user, we check the value of the "BETTERGDPR" cookie value and inject approved JavaScript code. If it is a new user, we will show the user our cookie consent popup.
 
 = 2. Simple Integration =
 
-BetterGDPR plugin does not change your database structure nor it does not create any additional tables to store user consent values. Instead, the plugin will open for your site a tenant subdomain at PrivacyBunker.cloud - a service build and maintained by the PranoidGuy.com team. This domain will be a privacy portal for your users.
+BetterGDPR plugin does not change your database structure, nor it does not create any additional tables to store user consent values. Instead, the plugin will open for your site a tenant subdomain at PrivacyBunker.cloud - a service build and maintained by the PranoidGuy.com team. This domain will be a privacy portal for your users.
 
 What are the advantages of this architecture:
 
 1. No changes in your WordPress production database.
-2. The user gets privacy portal covered bellow.
-3. Personal data is encrypted and stored in AWS Aurora PostgreSQL cluster deployed in Frankfurt.
+2. The user can use the Privacy Portal covered bellow.
+3. Personal data is encrypted and stored in the AWS Aurora PostgreSQL cluster deployed in Frankfurt.
 
 
 = 3. User privacy portal =
 
-All your users will get an access to the cloud Privacy Portal. This Privacy Portal will allow your customers to fetch details from other 3rd party SAAS services and give you solution for the following GDPR requirements:
+All your users will get access to the cloud Privacy Portal. This Privacy Portal will allow your customers to fetch details from other 3rd party SAAS services and give you a solution for the following GDPR requirements:
 
 * **Access**: your customers can log in to his Databunker account and view personal data.
 * **Withdraw**: your customers can withdraw consents given previously.
