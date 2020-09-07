@@ -13,7 +13,7 @@ GDPR Automation & Cookie Consent plugin built by ParanoidGuy.com team.
 
 == Description ==
 
-Better-GDPR is a GDPR automation service built by the <a target='_blank' href='https://paranoidguy.com/'>ParanoidGuy.com team</a>. In addition to regular services like cookie consent and GDPR user request management, the plugin knows to automatically sync user records with different cloud SAAS services. For example Mailchimp, GetResponse, Hubspot, SAP, Salesforce, etc...
+Better-GDPR is a part of GDPR automation service built by the <a target='_blank' href='https://paranoidguy.com/'>ParanoidGuy.com team</a>. In addition to regular services like cookie consent and GDPR user request management, the plugin knows to automatically sync user records with different cloud SAAS services. For example Mailchimp, GetResponse, Hubspot, SAP, Salesforce, etc...
 
 = Plugin main advantages: =
 
@@ -43,11 +43,11 @@ What are the advantages of this architecture:
 
 All your users will get access to the cloud Privacy Portal. This Privacy Portal will allow your customers to fetch details from other 3rd party SAAS services and give you a solution for the following GDPR requirements:
 
-* **Access**: your customers can log in to his Databunker account and view personal data.
+* **Access**: your customers can fetch and view PII from WordPress and from other SAAS services you might use.
 * **Withdraw**: your customers can withdraw consents given previously.
-* **Update**: your customers can change their personal data saved in Databunker.
-* **Delete**: your customers can perform a "forget-me" request inside Databunker.
-* **Restrict**: your customers can specify what operations they allow with their personal profiles.
+* **Update**: your customers can change their personal data.
+* **Delete**: your customers can perform a "forget-me" request inside the Privacy Portal.
+* **Restrict**: your customers can restrict the sharing and processing of their personal records.
 
 = 4. User profile change propagation =
 
