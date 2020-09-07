@@ -13,22 +13,22 @@ GDPR Automation & Cookie Consent plugin built by ParanoidGuy.com team.
 
 == Description ==
 
-Better-GDPR is GDPR automation service built by <a target='_blank' href='https://paranoidguy.com/'>ParanoidGuy.com team</a>. In addition to regular services like cookie consent and GDPR user request management we can automatically sync user records with different SAAS service. For example Mailchimp, GetResponse, Hubspot, SAP, Salesforce, etc... at the fraction of the cost.
+Better-GDPR is GDPR automation service built by <a target='_blank' href='https://paranoidguy.com/'>ParanoidGuy.com team</a>. In addition to regular services like cookie consent and GDPR user request management, the plugin knows to automatically sync user records with different cloud SAAS service. For example Mailchimp, GetResponse, Hubspot, SAP, Salesforce, etc...
 
-= Plugin main features: =
+= Plugin main advantages: =
 
-1. Cookie consent popup
-2. Better architecture
-3. PrivacyBunker.cloud portal integration
-3. User profile sync and change propagation
+1. GDPR compliant cookie consent popup
+2. Simple integration
+3. User privacy portal
+4. User profile sync and change propagation
 
-= 1. Cookie consent plugin =
+= 1. GDPR compliant cookie consent plugin =
 
 It is very similar to other cookie consent popup plugins. The main difference between most of the similar tools is that we inject not-required components (javascript) only after we got actual user consent. For example, Advertising related javascript code will be injected after the user gave us Advertising consent. You will need to specify actual javascript code to inject (i.e. Facebook pixel) under specific categories using our management tool.
 
 Under the hood, user consent categories are saved in a special cookie called: "BETTERGDPR". So, when the page loads, for the user, for the first time in a session, we check the value of the "BETTERGDPR" cookie value and inject approved javascript code. If it is a new user, we will show the user our cookie consent popup.
 
-= 2. Better architecture =
+= 2. Simple Integration =
 
 BetterGDPR plugin does not change your database structure nor it does not create any additional tables to store user consent values. Instead, the plugin will open for your site a tenant subdomain at PrivacyBunker.cloud - a service build and maintained by the PranoidGuy.com team. This domain will be a privacy portal for your users.
 
@@ -39,19 +39,15 @@ What are the advantages of this architecture:
 3. Personal data is encrypted and stored in AWS Aurora PostgreSQL cluster deployed in Frankfurt.
 
 
-= 3. PrivacyBunker.cloud privacy portal integration =
+= 3. User privacy portal =
 
-Upon your end-user registration, we will also register him at Custom-Subdomain.PrivacyBunker.cloud service. PrivacyBunker.cloud service gives your customers full control in terms of the GDPR. It automates the execution of the following GDPR user rights:
+All your users will get an access to the cloud Privacy Portal. This Privacy Portal will allow your customers to fetch details from other 3rd party SAAS services and give you solution for the following GDPR requirements:
 
-1. The right to be informed
-2. The right of access
-3. The right to rectification
-4. The right to erasure
-5. The right to restrict processing
-6. The right to data portability
-7. The right to object
-8. Rights in relation to automated decision making and profiling
-
+* **Access**: your customers can log in to his Databunker account and view personal data.
+* **Withdraw**: your customers can withdraw consents given previously.
+* **Update**: your customers can change their personal data saved in Databunker.
+* **Delete**: your customers can perform a "forget-me" request inside Databunker.
+* **Restrict**: your customers can specify what operations they allow with their personal profiles.
 
 = 4. User profile change propagation =
 
@@ -77,6 +73,7 @@ Yes. We are planning to add multiple languages in the nearest future.
 
 1. BetterGDPR Solution Architecture
 2. Advanced Cookie Consent Screen
+3. User Controls
 
 
 == Changelog ==
