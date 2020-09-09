@@ -86,15 +86,18 @@ function bettergdpr_request_full_export($request) {
   if ( $requests_query->found_posts ) {
     $request_id = $requests_query->posts[0];
   } else {
-    $request = wp_create_user_request( $email, 'export_personal_data' );
-    error_log($request);
-    $request_id = $request->ID;
-    sleep(1);
+    $request_id = wp_create_user_request( $email, 'export_personal_data' );
   }
+  if (!$request_id) {
+    header('Content-Type: application/json; charset=UTF-8');
+    echo('{"status":"error","status":"try again"}');
+    exit();
+  }
+  //error_log("request id: $request_id");
   //do_action( 'wp_privacy_personal_data_export_file', $request_id );
   wp_privacy_generate_personal_data_export_file( $request_id );
   $export_file_url = get_post_meta( $request_id, '_export_file_url', true );
-  error_log("**** after get_post_meta $export_file_url ");
+  #error_log("**** after get_post_meta $export_file_url ");
   header('Content-Type: application/json; charset=UTF-8');
   echo('{"status":"ok","url":"'.$export_file_url.'"}');
   exit();
