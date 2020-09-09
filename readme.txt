@@ -51,7 +51,7 @@ All your users will get access to the cloud Privacy Portal. This Privacy Portal 
 
 = 4. User profile change propagation =
 
-If configured, upon user profile change, the service can automatically sync user details (name, email, etc...) with the following SAAS services:
+If configured, upon user profile change, the service can automatically sync user details with the following SAAS services:
 
 1. GetReponse
 2. MailChimp
@@ -59,7 +59,7 @@ If configured, upon user profile change, the service can automatically sync user
 4. Salesforce
 5. Etc...
 
-If a user is deleted, the service can be configured to automatically delete user records from specific SAAS services.
+If a user is deleted, the service can be configured to automatically delete user records from configured SAAS services.
 
 
 == Frequently Asked Questions ==
