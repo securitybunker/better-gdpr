@@ -13,13 +13,13 @@ GDPR Automation & Cookie Consent plugin built by ParanoidGuy.com team.
 
 == Description ==
 
-Better-GDPR is a part of **GDPR automation service** built by the <a target='_blank' href='https://paranoidguy.com/'>ParanoidGuy.com team</a>.
+Better-GDPR is a part of the **GDPR automation service** built by the <a target='_blank' href='https://paranoidguy.com/'>ParanoidGuy.com team</a>.
 
 == Why we are better? ==
 
-This product is great for anyone selling to **European customers** (<u>e-commerce, startups, consulting companies</u>). The service provides **visibility** to the end users about personal data both on the WordPress website, inside online CRM systems (<u>HubSpot, Salesforce, SAP, Zoho, etc...</u>), inside online email marketing services (<u>GetResponse, Mailchimp, etc...</u>), inside online support systems (<u>Zendesk, Freshdesk, etc...</u>) and other <u>SAAS services</u> and everything form the user **Privacy Portal** provided by the service.
+This product is great for anyone selling to **European customers** (e-commerce, startups, consulting companies). The service provides **visibility** to the end users about personal data both on the WordPress website, inside online CRM systems (**HubSpot, Salesforce, SAP, Zoho, etc...**), inside online email marketing services (**GetResponse, Mailchimp, etc...**), inside online support systems (**Zendesk, Freshdesk, etc...**) and other **SAAS services** and everything form the user **Privacy Portal** provided by the service.
 
-In addition, the plugin has regular features like <u>cookie consent banner</u> and integration with different <u>WordPress forms</u> (login, signup, contact, purchase, etc...).
+In addition, the plugin has regular features like **cookie consent banner** and integration with different **WordPress forms** (login, signup, contact, purchase, etc...).
 
 == Plugin main advantages: ==
 
