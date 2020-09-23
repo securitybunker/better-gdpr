@@ -35,10 +35,11 @@ function bettergdpr_var_error_log( $object=null ){
 function bettergdpr_request_export($request) {
   $sitekey = get_option( 'bettergdpr_sitekey', '' );
   $auth = $request->get_header('authorization');
-  if (!$auth || strlen($sitekey) == 0) {
+  $auth2 = $request->get_header('x-authorization');
+  if (strlen($sitekey) == 0) {
     return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
   }
-  if ($auth != "Bearer $sitekey") {
+  if ($auth != "Bearer $sitekey" && $auth2 != "Bearer $sitekey") {
     return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
   }
   $email = $request["email"];
@@ -60,10 +61,11 @@ function bettergdpr_request_export($request) {
 function bettergdpr_request_full_export($request) {
   $sitekey = get_option( 'bettergdpr_sitekey', '' );
   $auth = $request->get_header('authorization');
-  if (!$auth || strlen($sitekey) == 0) {
+  $auth2 = $request->get_header('x-authorization');
+  if (strlen($sitekey) == 0) {
     return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
   }
-  if ($auth != "Bearer $sitekey") {
+  if ($auth != "Bearer $sitekey" && $auth2 != "Bearer $sitekey") {
     return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
   }
   $email = $request["email"];
@@ -106,10 +108,11 @@ function bettergdpr_request_full_export($request) {
 function bettergdpr_request_delete($request) {
   $sitekey = get_option( 'bettergdpr_sitekey', '' );
   $auth = $request->get_header('authorization');
-  if (!$auth || strlen($sitekey) == 0) {
+  $auth2 = $request->get_header('x-authorization');
+  if (strlen($sitekey) == 0) {
     return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
   }
-  if ($auth != "Bearer $sitekey") {
+  if ($auth != "Bearer $sitekey" && $auth2 != "Bearer $sitekey") {
     return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
   }
   $email = $request["email"];
@@ -134,10 +137,11 @@ function bettergdpr_request_delete($request) {
 function bettergdpr_request_change_email($request) {
   $sitekey = get_option( 'bettergdpr_sitekey', '' );
   $auth = $request->get_header('authorization');
-  if (!$auth || strlen($sitekey) == 0) {
+  $auth2 = $request->get_header('x-authorization');
+  if (strlen($sitekey) == 0) {
     return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
   }
-  if ($auth != "Bearer $sitekey") {
+  if ($auth != "Bearer $sitekey" && $auth2 != "Bearer $sitekey") {
     return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
   }
   $email = $request["email"];
@@ -162,10 +166,11 @@ function bettergdpr_request_change_email($request) {
 function bettergdpr_request_validate($request) {
   $sitekey = get_option( 'bettergdpr_sitekey', '' );
   $auth = $request->get_header('authorization');
-  if (!$auth || strlen($sitekey) == 0) {
+  $auth2 = $request->get_header('x-authorization');
+  if (strlen($sitekey) == 0) {
     return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
   }
-  if ($auth != "Bearer $sitekey") {
+  if ($auth != "Bearer $sitekey" && $auth2 != "Bearer $sitekey") {
     return new WP_Error( 'forbidden_access', 'Access denied', array( 'status' => 403 ));
   }
   header('Content-Type: application/json; charset=UTF-8');
