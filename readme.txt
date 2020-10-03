@@ -78,5 +78,9 @@ Yes. We are planning to add multiple languages in the nearest future.
 = 0.2.0 =
 * Initial product release.
 
+= 0.2.1 =
+* Automatically change banner position.
+
+
 == Upgrade Notice ==
 
