@@ -396,7 +396,7 @@ function bettergdpr_load_settings() {
 	  var banner = document.getElementById('bettergdpr_cookie_banner');
           if (banner) {
 	    banner.style.visibility = "visible";
-            var obj = document.getElementById('PopupMessage');
+            var obj = document.getElementById('bettergdpr_popup_message');
 	    if (obj) {
               obj.innerHTML = popupConf.PopupMessage;
 	    }
@@ -500,6 +500,23 @@ function  bettergdpr_allow_required_cookies() {
 }
 bettergdpr_load_settings();
 </script>
+<style>
+#bettergdpr_cookie_banner {
+background-color:rgba(71,81,84,.95);box-shadow: 0 -8px 20px 0 rgba(0,0,0,.2);width:100%;margin:0 auto;padding:5px;font-size: 1em;color: #6d6d6d;bottom:0px;position:fixed;left: 0px;opacity:0.9;filter:alpha(opacity=80);height:auto;max-height:500px;z-index:9999999999;overflow:hidden;
+}
+#bettergdpr_popup_message {float:left;color:#fff;width: calc(100% - 200px);padding:10px;}
+#bettergdpr_popup_buttons {float:left;width:200px;margin:0 auto;text-align:center;vertical-align: middle;padding-top:15px;}
+#bettergdpr_cookie_banner #bettergdpr_agree_btn {text-decoration:none;font-weight: 400;text-transform: uppercase;cursor: pointer;background-color: #2eb8ff;min-width: 150px;min-height: 33px;margin: 0;padding: .5rem 1rem;font-size: 1.3rem;color: #fff;border: none;border-radius: 3px;outline: none;}
+#bettergdpr_cookie_banner #bettergdpr_req_btn {text-decoration:none;font-weight: 400;text-transform: uppercase;background-color:transparent;cursor: pointer;min-width: 150px;min-height: 30px;margin: 5px 0 0 0;padding: .5rem 1rem;font-size: 1.1rem;color: #fff;border: 1px solid #fff;border-radius: 3px;outline: none;}
+@media only screen and (min-width:769px){
+#bettergdpr_cookie_banner {max-width:70%; border-top-right-radius: 5px;}
+}
+@media only screen and (max-width:500px){
+#bettergdpr_popup_message {width: 100%; padding:5px;}
+#bettergdpr_popup_buttons {padding:0px 0px 10px 0px; width: 100%;}
+#bettergdpr_popup_buttons #bettergdpr_agree_btn {  margin-right: 10px; }
+}
+</style>
 <div id="bettergdpr_settings_popup" style="background: rgba(0, 0, 0, 0.7);position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index:999999999; display:none;">
   <div style="position:absolute; top:20px; right:20px; background: transparent;cursor: pointer;color:#fff;font-family: 'Helvetica', 'Arial', sans-serif;font-size: 2em;font-weight: 400;text-align: center;width: 40px;height: 40px;border-radius: 5px;margin: 0 auto;" onclick="bettergdpr_close_cookie_settings_popup()">X</div>
   <div style="display:block;height:10%;">&nbsp;</div>
@@ -516,11 +533,11 @@ bettergdpr_load_settings();
   <center><button onclick='bettergdpr_allow_custom_cookies();'>Save settings</button></center>
   </div>
 </div>
-<div id="bettergdpr_cookie_banner" style="visibility:hidden;background-color:rgba(71,81,84,.95);box-shadow: 0 -8px 20px 0 rgba(0,0,0,.2);width:100%;margin:0 auto;padding:5px;font-size: 1em;color: #6d6d6d;bottom:0px;position:fixed;left: 0px;opacity:0.9;filter:alpha(opacity=80);height:auto;max-height:500px;z-index:9999999999;overflow:hidden;">
-<div id='PopupMessage' style="float:left;color:#fff;width: calc(100% - 200px);padding:10px;"></div>
-<div style="float:left;width:200px;margin:0 auto;text-align:center;vertical-align: middle;padding-top:15px;">
-<button style="text-decoration:none;font-weight: 400;text-transform: uppercase;cursor: pointer;background-color: #2eb8ff;min-width: 160px;min-height: 33px;margin: 0;padding: .5rem 1rem;font-size: 1.3rem;color: #fff;border: none;border-radius: 3px;outline: none;" onclick='bettergdpr_allow_all_cookies();'>I agree&nbsp;<span style="font-weight: 700;style:inline-block;height:25px;">✓</span></button>
-<button style="text-decoration:none;font-weight: 400;text-transform: uppercase;background-color:transparent;cursor: pointer;min-width: 160px;min-height: 30px;margin: 5px 0 0 0;padding: .5rem 1rem;font-size: 1.1rem;color: #fff;border: 1px solid #fff;border-radius: 3px;outline: none;" onclick='bettergdpr_allow_required_cookies();'>Required only</button>
+<div id="bettergdpr_cookie_banner" style="visibility:hidden;">
+ <div id='bettergdpr_popup_message'></div>
+ <div id='bettergdpr_popup_buttons'>
+  <button id='bettergdpr_agree_btn' onclick='bettergdpr_allow_all_cookies();'>I agree&nbsp;<span style="font-weight: 700;style:inline-block;height:25px;">✓</span></button>
+  <button id='bettergdpr_req_btn' onclick='bettergdpr_allow_required_cookies();'>Required only</button>
 <div style="display:block;padding:0;margin:0;"><u style="color:#fff;font-weight: 400;background-color:transparent;cursor: pointer;font-size:1rem;" onclick="bettergdpr_show_cookie_settings_popup();">Customize settings</u></div>
 </div>
 </div>
