@@ -82,7 +82,11 @@ function bettergdpr_api_delete_user($email) {
   return bettergdpr_data_request('DELETE', "/v1/user/email/$email", array());
 }
 
-function bettergdpr_api_create_pactivity($activity, $titlei, $desc) {
+function bettergdpr_api_wpsetup() {
+  return bettergdpr_data_request('POST', "/v1/account/wpsetup", array());
+}
+
+function bettergdpr_api_create_pactivity($activity, $title, $desc) {
   $data = array(
 	  'title' => $title,
 	  'fulldesc' => $desc

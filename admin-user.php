@@ -32,24 +32,8 @@ function bettergdpr_register_tenant($code, $site, $email, $subdomain) {
   update_option('bettergdpr_subdomain', $subdomain);
   update_option('bettergdpr_sitekey', $result->sitekey);
   update_option('bettergdpr_xtoken', $result->xtoken);
-
-  # create processing operations
-  # "integrate-advertising-networks"
-  bettergdpr_api_create_pactivity("advertising-networks-user-tracking", "Ad Network User tracing", "Enable internal or 3rd party advertising / affiliate network scripts to use cookies to track users (tracking pixel) for remarketting; display targeted ads; etc...");
-  bettergdpr_api_create_lbasis("advertising-cookies-consent", "cookie-popup", False, 'Advertising cookies', "These cookies are used to help better tailor advertising to your interests, both within and beyond this website.", "");
-  bettergdpr_api_link_pactivity("advertising-networks-user-tracking", "advertising-cookies-consent");
-
-  bettergdpr_api_create_pactivity("analytic-tools-user-tracking", "Analytics tools user tracking", "Enable internal or 3rd party analytics and logging tools on our website to use cookies to track users");
-  bettergdpr_api_create_lbasis("analytics-tools-consent", "cookie-popup", False, 'Analytics cookies', "These cookies allow us to analyze site usage so we can measure and improve performance of our site.", "");
-  bettergdpr_api_link_pactivity("analytic-tools-user-tracking", "analytics-tools-consent");
-
-  bettergdpr_api_create_pactivity("required-components-user-tracking", "Website required components user tracking", "Enable internal or 3rd party components required for website functionality to use cookie. For example: internal user login & logout, Youtube videos, usage of CDN; chat; captcha; online maps, social sharing; social login, etc...");
-  bettergdpr_api_create_lbasis("required-cookies-consent", "cookie-popup", True, 'Required cookies', "These cookies ensure that the website functions properly.", "Our website will not function properly.");
-  bettergdpr_api_link_pactivity("required-components-user-tracking", "required-cookies-consent");
-
-  bettergdpr_api_create_lbasis("send-email-on-login", "login", False, 'Send email on login', 'Confirm to allow sending access code using 3rd party email gateway', 'You will not be able to login');
-  bettergdpr_api_create_lbasis("send-sms-on-login", "login", False, 'Send SMS on login', 'Confirm to allow sending access code using 3rd party SMS gateway', 'You will not be able to login');
-
+  # configure wp plugin configuration
+  bettergdpr_api_wpsetup();
   return $result;
 }
 
