@@ -17,7 +17,7 @@ Better-GDPR is a part of the <a target='_blank' href='https://privacybunker.io/'
 
 == Why we are better? ==
 
-The service provides **visibility** and **control** to the end users over the personal data both on the WordPress website, inside online CRM systems (**HubSpot, Salesforce, SAP, Zoho, etc...**), inside online email marketing services (**GetResponse, Mailchimp, ActiveCampaign, etc...**), inside online support systems (**Zendesk, Freshdesk, etc...**) and other **SAAS services** and everything form the user **Privacy Portal** provided by the service.
+The service provides **visibility** and **control** to the end-users over the personal data both on the WordPress website, inside online CRM systems (**HubSpot, Salesforce, SAP, Zoho, etc...**), inside online email marketing services (**GetResponse, Mailchimp, ActiveCampaign, etc...**), inside online support systems (**Zendesk, Freshdesk, etc...**) and other **SAAS services** and everything from the user **Privacy Portal** provided by the service.
 
 In addition, the plugin has regular features like **cookie consent banner** and integration with different **WordPress forms** (login, signup, contact, purchase, etc...).
 
