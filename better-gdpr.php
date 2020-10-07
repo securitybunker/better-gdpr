@@ -11,7 +11,7 @@
  * Plugin Name: Better GDPR
  * Plugin URI:  https://paranoidguy.com
  * Description: GDPR & Cookie Consent plugin built by ParanoidGuy.com team.
- * Version:     0.2.1
+ * Version:     0.2.2
  * Author:      Yuli Stremovsky
  * Author URI:  https://paranoidguy.com/about-us
  * Text Domain: https://paranoidguy.com
@@ -451,14 +451,16 @@ function bettergdpr_show_cookie_settings() {
   for (var index = 0; index < rows.length; index++) {
     const r = rows[index];
     var locked = 'onclick="return false;"';
+    var checked = 'checked';
     var flag = '&nbsp;*';
     if (!r['requiredflag']) {
+      checked= '';
       locked = '';
       flag = '';
     }
     out = out + '<div class="r">';
     out = out + '<div class="h">'+r["shortdesc"]+flag+'</div>';
-    out = out + '<div class="c"><label class="switch"><input type="checkbox" checked '+locked+' name="'+r["brief"]+'"><span class="slider round"></span></label></div>';
+    out = out + '<div class="c"><label class="switch"><input type="checkbox" '+checked+' '+locked+' name="'+r["brief"]+'"><span class="slider round"></span></label></div>';
     out = out + '<p>'+r["fulldesc"]+'</p>';
     out = out + '</div>';
     //console.log(r);

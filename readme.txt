@@ -81,6 +81,8 @@ Yes. We are planning to add multiple languages in the nearest future.
 = 0.2.1 =
 * Automatically change banner position.
 
+= 0.2.2 =
+* Disable checked checkboxes by default.
 
 == Upgrade Notice ==
 
