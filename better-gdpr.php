@@ -13,7 +13,7 @@
  * Description: GDPR & Cookie Consent plugin built by ParanoidGuy.com team.
  * Version:     0.2.2
  * Author:      Yuli Stremovsky
- * Author URI:  https://paranoidguy.com/about-us
+ * Author URI:  https://paranoidguy.com
  * Text Domain: https://paranoidguy.com
  * License:     GPL v3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
@@ -302,8 +302,12 @@ function bettergdpr_profile_update($user_id, $old) {
 
 function bettergdpr_cookie_consent() {
 $subdomain = get_option( 'bettergdpr_subdomain', '' );
+if ($subdomain == '') {
+  return;
+}
 $srv = "https://".$subdomain.".privacybunker.cloud/";
 $css_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/better-gdpr.css';
+$powered_by_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/assets/powered-by.png';
 $logo_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/assets/logo.png';
 
 # body.faded {overflow:hidden}
@@ -504,19 +508,23 @@ bettergdpr_load_settings();
 </script>
 <style>
 #bettergdpr_cookie_banner {
-background-color:rgba(71,81,84,.95);box-shadow: 0 -8px 20px 0 rgba(0,0,0,.2);width:100%;margin:0 auto;padding:5px;font-size: 1em;color: #6d6d6d;bottom:0px;position:fixed;left: 0px;opacity:0.9;filter:alpha(opacity=80);height:auto;max-height:500px;z-index:9999999999;overflow:hidden;
+background-color:rgba(71,81,84,.95);box-shadow: 0 -8px 20px 0 rgba(0,0,0,.2);width:100%;margin:0 auto;padding:5px;font-size: 1em;color: #6d6d6d;bottom:0px;position:fixed;left: 0px;opacity:0.9;filter:alpha(opacity=80);height:auto;max-height:500px;z-index:9999999999;overflow:hidden;line-height: 1.25;
 }
-#bettergdpr_popup_message {float:left;color:#fff;width: calc(100% - 200px);padding:10px;}
-#bettergdpr_popup_buttons {float:left;width:200px;margin:0 auto;text-align:center;vertical-align: middle;padding-top:15px;}
-#bettergdpr_cookie_banner #bettergdpr_agree_btn {text-decoration:none;font-weight: 400;text-transform: uppercase;cursor: pointer;background-color: #2eb8ff;min-width: 150px;min-height: 33px;margin: 0;padding: .5rem 1rem;font-size: 1.3rem;color: #fff;border: none;border-radius: 3px;outline: none;}
-#bettergdpr_cookie_banner #bettergdpr_req_btn {text-decoration:none;font-weight: 400;text-transform: uppercase;background-color:transparent;cursor: pointer;min-width: 150px;min-height: 30px;margin: 5px 0 0 0;padding: .5rem 1rem;font-size: 1.1rem;color: #fff;border: 1px solid #fff;border-radius: 3px;outline: none;}
+#bettergdpr_popup_message {display:block;color:#fff;width: 100%;padding:10px;}
+#bettergdpr_popup_buttons {display:flex;flex-direction:row;flex-wrap:wrap;flex-grow:2;justify-content:space-between;margin:0 auto;text-align:center;vertical-align: middle;padding:0px 10px 0px 10px;}
+#bettergdpr_cookie_banner #bettergdpr_agree_btn {text-decoration:none;font-weight: 400;text-transform: uppercase;cursor: pointer;background-color: #2eb8ff;min-width: 150px;min-height: 33px;margin: 0;padding: 5px 2px;font-size: 15px;color: #fff;border: none;border-radius: 3px;outline: none;line-height: inherit;}
+#bettergdpr_cookie_banner #bettergdpr_req_btn {text-decoration:none;font-weight: 400;text-transform: uppercase;background-color:transparent;cursor: pointer;min-width: 150px;min-height: 30px;margin: 0px;padding: 5px 2px;font-size: 15px;color: #fff;border: 1px solid #fff;border-radius: 3px;outline: none;line-height: inherit;}
+#bettergdpr_branding {color:#fff;padding:10px;}
+#bettergdpr_powered_by {float:left;font-size:12px;}
 @media only screen and (min-width:769px){
-#bettergdpr_cookie_banner {max-width:70%; border-top-right-radius: 5px;}
+#bettergdpr_cookie_banner {max-width:70%;}
 }
 @media only screen and (max-width:500px){
-#bettergdpr_popup_message {width: 100%; padding:5px;}
-#bettergdpr_popup_buttons {padding:0px 0px 10px 0px; width: 100%;}
+#bettergdpr_popup_message {padding:5px;}
+#bettergdpr_popup_buttons {padding:0px 5px 0px 5px;}
 #bettergdpr_popup_buttons #bettergdpr_agree_btn {  margin-right: 10px; }
+#bettergdpr_powered_by {display:none;}
+#bettergdpr_branding {padding:5px;}
 }
 </style>
 <div id="bettergdpr_settings_popup" style="background: rgba(0, 0, 0, 0.7);position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index:999999999; display:none;">
@@ -525,10 +533,10 @@ background-color:rgba(71,81,84,.95);box-shadow: 0 -8px 20px 0 rgba(0,0,0,.2);wid
   <div id="bettergdpr_settings_page">
   <div style="display:block;">
   <h3 id="CustomPopupTitle" style="float:left;"></h3>
-  <div style="float:right;"><a target="_blank" href="https://paranoidguy.com/"><img width=200 src="<?php echo($logo_file); ?>" /></a></div>
+  <div style="float:right;"><a target="_blank" href="https://privacybunker.io/"><img width=200 src="<?php echo($logo_file); ?>" /></a></div>
   <div style="clear: both;"></div>
   </div>
-  <p id="CustomPopupDescription"></p>
+  <p style='text-align: justify;' id="CustomPopupDescription"></p>
   <center><button onclick='bettergdpr_allow_all_cookies();'>Allow All</button></center>
   <h4>Manage individual settings</h4>
   <div id="bettergdpr_settings_items"></div>
@@ -538,10 +546,14 @@ background-color:rgba(71,81,84,.95);box-shadow: 0 -8px 20px 0 rgba(0,0,0,.2);wid
 <div id="bettergdpr_cookie_banner" style="visibility:hidden;">
  <div id='bettergdpr_popup_message'></div>
  <div id='bettergdpr_popup_buttons'>
-  <button id='bettergdpr_agree_btn' onclick='bettergdpr_allow_all_cookies();'>I agree&nbsp;<span style="font-weight: 700;style:inline-block;height:25px;">✓</span></button>
   <button id='bettergdpr_req_btn' onclick='bettergdpr_allow_required_cookies();'>Required only</button>
-<div style="display:block;padding:0;margin:0;"><u style="color:#fff;font-weight: 400;background-color:transparent;cursor: pointer;font-size:1rem;" onclick="bettergdpr_show_cookie_settings_popup();">Customize settings</u></div>
-</div>
+  <button id='bettergdpr_agree_btn' onclick='bettergdpr_allow_all_cookies();'>I agree&nbsp;<span style="font-weight: 700;style:inline-block;height:25px;">✓</span></button>
+  <div style="display:inline;padding:0;margin:0;"><u style="color:#fff;font-weight: 400;background-color:transparent;cursor: pointer;font-size:12px;" onclick="bettergdpr_show_cookie_settings_popup();">Customize settings</u></div>
+ </div>
+ <div id='bettergdpr_branding'>
+  <div id='bettergdpr_powered_by'>Powered by&nbsp;&nbsp;<a target='_blank' href='https://privacybunker.io/'><img style="display:inline;margin-top:-5px;" width=140 src="<?php echo($powered_by_file); ?>"/></a></div>
+  <div style="float:right;font-size:12px;">Privacy portal <a style='color:#fff;font-weight: 300;background-color:transparent;cursor: pointer;font-size:12px;text-decoration:underline;' href='<?php echo($srv); ?>' target='_blank'><?php echo($srv); ?></a></div>
+ </div>
 </div>
 <?php
 }
