@@ -432,7 +432,7 @@ function bettergdpr_set_cookie(name, briefs) {
   if (old) {
     old = old.trim();
     if (old.length > 0 && old[old.length-1] !== ';') {
-      old = old[old.length-1] + '; ';
+      old = old + '; ';
     }
   } else {
     old = '';
