@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: stremovsky
-Donate link: https://paranoidguy.com/
+Donate link: https://privacybunker.io/
 Tags: gdpr, privacy, privacy-tools, compliance, cookie-consent, security, cookie-banner, GDPR-compliance, general-data-protection-regulation, law, saas, regulations
 Requires at least: 4.7
 Tested up to: 5.5
@@ -9,7 +9,7 @@ Requires PHP: 7.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
-GDPR Automation & Cookie Consent plugin built by ParanoidGuy.com team.
+GDPR Automation & Cookie Consent plugin built by PrivacyBunker.io team.
 
 == Description ==
 
@@ -40,7 +40,7 @@ All your users will get access to the Privacy Portal. The **Privacy Portal** all
 
 = 2. Simple Integration =
 
-BetterGDPR plugin does not change your database structure, nor it does not create any additional tables. Instead, the plugin will open for your site a **tenant subdomain** at **PrivacyBunker.cloud** - a service build and maintained by the <a target='_blank' href='https://paranoidguy.com/'>ParanoidGuy.com team</a>. This domain will be used as a **Privacy Portal** for your users.
+BetterGDPR plugin does not change your database structure, nor it does not create any additional tables. Instead, the plugin will open for your site a **tenant subdomain** at **PrivacyBunker.cloud** - a service build and maintained by the <a target='_blank' href='https://privacybunker.io/'>PrivacyBunker.io team</a>. This domain will be used as a **Privacy Portal** for your users.
 
 **What are the advantages of this architecture?**
 

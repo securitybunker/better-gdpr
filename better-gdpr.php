@@ -4,17 +4,17 @@
  *
  * @package     BetterGDPR
  * @author      Yuli Stremovsky
- * @copyright   2020 https://paranoidguy.com
+ * @copyright   2020 https://securitybunker.io
  * @license     GPL-3.0
  *
  * @wordpress-plugin
  * Plugin Name: Better GDPR
- * Plugin URI:  https://paranoidguy.com
- * Description: GDPR & Cookie Consent plugin built by ParanoidGuy.com team.
+ * Plugin URI:  https:/privacybunker.io
+ * Description: GDPR & Cookie Consent plugin built by PrivacyBunker.io team.
  * Version:     0.2.2
  * Author:      Yuli Stremovsky
- * Author URI:  https://paranoidguy.com
- * Text Domain: https://paranoidguy.com
+ * Author URI:  https://securitybunker.io
+ * Text Domain: https://privacybunker.io
  * License:     GPL v3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
  */
