@@ -82,7 +82,7 @@ function bettergdpr_copy_token() {
 <p>Admin access token for your website: XXXXXXXX-XXXX-XXXXXX<?php echo($xtoken_end); ?>&nbsp;&nbsp;
 <span class="dashicons dashicons-clipboard" onclick="bettergdpr_copy_token();"></span>
 <p>Privacy Bunker Service url: <a target="_blank" href="<?php echo($service); ?>"><?php echo($service); ?></a></p>
-<p>If you have any questions you can contact us at <u>onboarding@paranoidguy.com</u></p>
+<p>If you have any questions you can contact us at <u>onboarding@privacybunker.io</u></p>
 <?php
 }
 
@@ -118,7 +118,7 @@ jQuery( document ).ready(function() {
   bettergdprShowWizardPage('objectives');
 });
 </script>
-<center><p>If you have any questions you can contact us at <u>onboarding@paranoidguy.com</u></p></center>
+<center><p>If you have any questions you can contact us at <u>onboarding@privacybunker.io</u></p></center>
 </div>
 <?php
 }
