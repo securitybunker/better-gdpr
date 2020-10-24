@@ -317,6 +317,13 @@ function bettergdpr_add_consents_column( $column_headers ) {
   return $column_headers;
 }
 
+function bettergdpr_plugin_action_links_callback( $actions, $plugin_file, $plugin_data, $context ) {
+  if (strpos($plugin_file, 'better-gdpr') !== false && array_key_exists( 'deactivate', $actions )) {
+    array_unshift( $actions, '<a href="'. esc_url( get_admin_url(null, 'admin.php?page=paranoidguy') ) .'">Settings</a>');
+  }
+  return $actions;
+}
+
 function bettergdpr_uninstall() {
   delete_option('bettergdpr_subdomain');
   delete_option('bettergdpr_xtoken');
@@ -325,6 +332,7 @@ function bettergdpr_uninstall() {
 
 function bettergdpr_init_admin() {
   add_action('admin_menu', 'bettergdpr_admin_menu');
+  add_filter( 'plugin_action_links', 'bettergdpr_plugin_action_links_callback', 10, 4 );
   // add column to the list of users to display list of given consents
   // it is available at /wp-admin/users.php
   add_filter( 'manage_users_custom_column', 'bettergdpr_get_user_consents', 10, 6 );
