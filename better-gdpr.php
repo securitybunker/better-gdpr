@@ -232,6 +232,35 @@ function bettergdpr_custom_registration() {
   print($out);
 }
 
+function bettergdpr_woocommerce_checkout($fields) {
+  $options = bettergdpr_api_get_all_lbasis();
+  if ( empty( $options ) ) {
+    return $fields;
+  }
+  foreach ($options as $row) {
+    if ($row->status != "active") {
+      continue;
+    }
+    if ($row->module != "signup-page") {
+      continue;
+    }
+    $b = $row->brief;
+    $r = ($row->requiredflag)? "required" : "";
+    $desc = $row->shortdesc;
+    $checked = "";
+    if (isset($_POST["bettergdpr-$b"])) {
+      $checked = "checked";
+    }
+    $fields['billing'][ 'bettergdpr-' . $b ] = array(
+                        'type'     => 'checkbox',
+                        'label'    => $desc,
+			'required' => $r,
+			'checked'  => $checked,
+    );
+  }
+  return $fields;
+}
+
 function bettergdpr_registration_check( $errors, $sanitized_user_login, $user_email ) {
   $options = bettergdpr_api_get_all_lbasis();
   foreach ($options as $row) {
@@ -564,6 +593,11 @@ add_action( 'register_form', 'bettergdpr_custom_registration');
 add_action( 'registration_errors', 'bettergdpr_registration_check', 10, 3);
 add_action( 'user_register', 'bettergdpr_registration_save');
 add_action( 'wp_footer', 'bettergdpr_cookie_consent');
+if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) {
+  add_action( 'woocommerce_register_form', 'bettergdpr_custom_registration', 21);
+}
+add_filter( 'woocommerce_checkout_fields', 'bettergdpr_woocommerce_checkout');
+
 
 function bettergdpr_profile_edit_user( $user ) {
 $subdomain = get_option( 'bettergdpr_subdomain', '' );
