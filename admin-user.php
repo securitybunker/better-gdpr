@@ -77,12 +77,11 @@ function bettergdpr_copy_token() {
 }
 </script>
 <h3>Privacy Bunker Access</h3>
-<p style="font-size:130%;">One click access: <a target="_blank" href="<?php echo($url); ?>">click here</a></p>
+<p style="font-size:150%;">One-click access: <a target="_blank" href="<?php echo($url); ?>">click here</a></p>
 <p>&nbsp;<p>
-<p>Admin access token for your website: XXXXXXXX-XXXX-XXXXXX<?php echo($xtoken_end); ?>&nbsp;&nbsp;
-<span class="dashicons dashicons-clipboard" onclick="bettergdpr_copy_token();"></span>
-<p>Privacy Bunker Service url: <a target="_blank" href="<?php echo($service); ?>"><?php echo($service); ?></a></p>
-<p>If you have any questions you can contact us at <u>onboarding@privacybunker.io</u></p>
+<p>Admin access token for your website: <a href='#' onclick="bettergdpr_copy_token();">(copy)</a></p>
+<p>Privacy Bunker Service direct URL: <a target="_blank" href="<?php echo($service); ?>"><?php echo($service); ?></a></p>
+<p>If you have any questions you can contact our support at <u>onboarding@privacybunker.io</u></p>
 <?php
 }
 
@@ -278,11 +277,11 @@ function bettergdpr_admin_menu() {
     'Better GDPR',// page title
     'Better GDPR',// menu title
     'manage_options',// capability
-    'paranoidguy',// menu slug
+    'bettergdpr',// menu slug
     'bettergdpr_admin_page' // callback function
   );
   add_submenu_page(
-    'paranoidguy',// menu slug
+    'bettergdpr',// menu slug
     'Setup',// menu title
     'Setup',
     'manage_options',// capability
@@ -292,7 +291,7 @@ function bettergdpr_admin_menu() {
 }
 
 function bettergdpr_get_user_consents( $val, $column_name, $user_id ) {
-  if ( $column_name === 'paranoidguy') {
+  if ( $column_name === 'bettergdpr') {
     $user = get_user_by("id", $user_id);
     if ($user && $user->user_email) {
       $records = bettergdpr_api_get_user_agreements('email', $user->user_email);
@@ -313,13 +312,13 @@ function bettergdpr_get_user_consents( $val, $column_name, $user_id ) {
 }
 
 function bettergdpr_add_consents_column( $column_headers ) {
-  $column_headers['paranoidguy'] = 'Privacy Agreements';
+  $column_headers['bettergdpr'] = 'Privacy Agreements';
   return $column_headers;
 }
 
 function bettergdpr_plugin_action_links_callback( $actions, $plugin_file, $plugin_data, $context ) {
   if (strpos($plugin_file, 'better-gdpr') !== false && array_key_exists( 'deactivate', $actions )) {
-    array_unshift( $actions, '<a href="'. esc_url( get_admin_url(null, 'admin.php?page=paranoidguy') ) .'">Settings</a>');
+    array_unshift( $actions, '<a href="'. esc_url( get_admin_url(null, 'admin.php?page=bettergdpr') ) .'">Settings</a>');
   }
   return $actions;
 }

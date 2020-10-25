@@ -219,10 +219,10 @@ function bettergdpr_show_consents($page) {
     $r = ($row->requiredflag)? "required" : "";
     $desc = $row->shortdesc;
     $checked = "";
-    if (isset($_POST["paranoidguy-$b"])) {
+    if (isset($_POST["bettergdpr-$b"])) {
       $checked = "checked";
     }
-    $out = $out . "<p><label class='pranoidguy-cb-label paranaoidguy-$b'><input type='checkbox' $checked name='paranoidguy-$b' id='paranoidguy-$b' $r>$desc</label></p>";
+    $out = $out . "<p><label class='pranoidguy-cb-label paranaoidguy-$b'><input type='checkbox' $checked name='bettergdpr-$b' id='bettergdpr-$b' $r>$desc</label></p>";
   }
   return $out;
 }
@@ -242,7 +242,7 @@ function bettergdpr_registration_check( $errors, $sanitized_user_login, $user_em
       continue;
     }
     $b = $row->brief;
-    if ($row->requiredflag && !isset($_POST['paranoidguy-'.$b])) {
+    if ($row->requiredflag && !isset($_POST['bettergdpr-'.$b])) {
       $reason = $row->requiredmsg;
       $errors->add('missing_required', "<strong>Error:</strong> $b is required. $reason");
     }
@@ -275,7 +275,7 @@ function bettergdpr_registration_save($user_id ) {
         continue;
       }
       $b = $row->brief;
-      if (isset($_POST['paranoidguy-'.$b])) {
+      if (isset($_POST['bettergdpr-'.$b])) {
         bettergdpr_api_agreement_accept($b, $email);
       }
     }
