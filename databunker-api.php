@@ -16,9 +16,9 @@ function bettergdpr_get_request($url) {
   $body      = wp_remote_retrieve_body( $response );
   $http_code = wp_remote_retrieve_response_code( $response );
   if ( $http_code != 200) {
-    error_log($full_url);
-    error_log($http_code);
-    error_log($response);
+    $full_url = preg_replace("|/email/.*$|", "/email/hidden@email.com", $full_url);
+    error_log("[" . $http_code . "] " . $full_url);
+    error_log($body);
   }
   return @json_decode($body);
 }
@@ -44,13 +44,12 @@ function bettergdpr_data_request($method, $url, $data) {
   $body      = wp_remote_retrieve_body( $response );
   $http_code = wp_remote_retrieve_response_code( $response );
   if ( $http_code != 200) {
-    error_log($full_url);
-    error_log($http_code);
-    error_log($response);
+    $full_url = preg_replace("|/email/.*$|", "/email/hidden@email.com", $full_url);
+    error_log("[" . $http_code . "] " . $full_url);
+    error_log($body);
   }
   return @json_decode($body);
 }
-
 
 function bettergdpr_api_get_account_standing() {
   return bettergdpr_get_request("/v1/account/standing");
@@ -127,6 +126,13 @@ function bettergdpr_api_create_user($user) {
   return bettergdpr_data_request('POST', "/v1/user", $data);
 }
 
+function bettergdpr_api_create_user_by_email($email) {
+  $data = array(
+    'email' => $email,
+  );
+  return bettergdpr_data_request('POST', "/v1/user", $data);
+}
+
 function bettergdpr_api_update_user($old_email, $user) {
   $wordpress = $user->data;
   $email = $wordpress->user_email;
@@ -164,9 +170,9 @@ function bettergdpr_api_register($code, $site, $email, $subdomain) {
   $body      = wp_remote_retrieve_body( $response );
   $http_code = wp_remote_retrieve_response_code( $response );
   if ( $http_code != 200) {
-    error_log($full_url);
-    error_log($http_code);
-    error_log($response);
+    $full_url = preg_replace("|/email/.*$|", "/email/hidden@email.com", $full_url);
+    error_log("[" . $http_code . "] " . $full_url);
+    error_log($body);
   }
   return @json_decode($body);
 }
