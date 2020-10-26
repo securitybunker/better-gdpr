@@ -1,18 +1,18 @@
 const bettergdpr_js_url = document.getElementById("bettergdpr_js").src;
 var bettergdpr_tenant;
 var bettergdpr_full_domain;
-var bettergdpr_full_css_url;
+var bettergdpr_full_url_dir;
 if (bettergdpr_js_url) {
   var bettergdpr_url = new URL(bettergdpr_js_url);
   if (bettergdpr_url) {
     bettergdpr_tenant = bettergdpr_url.searchParams.get('tenant');
     if (bettergdpr_tenant) {
       bettergdpr_full_domain = "https://"+bettergdpr_tenant+".privacybunker.cloud/";
-      bettergdpr_full_css_url = bettergdpr_url.protocol + '//' + bettergdpr_url.host;
+      bettergdpr_full_url_dir = bettergdpr_url.protocol + '//' + bettergdpr_url.host;
       if ( bettergdpr_url.port ) {
-        bettergdpr_full_css_url = bettergdpr_full_css_url + ':' + bettergdpr_url.port;
+        bettergdpr_full_url_dir = bettergdpr_full_url_dir + ':' + bettergdpr_url.port;
       }
-      bettergdpr_full_css_url = bettergdpr_full_css_url + bettergdpr_url.pathname.replace('.js', '.css');
+      bettergdpr_full_url_dir = bettergdpr_full_url_dir + bettergdpr_url.pathname.replace('/better-gdpr.js', '/');
     }
     
   }
@@ -24,7 +24,7 @@ var bettergdpr_html_code = `<div id="bettergdpr_settings_popup" style="backgroun
   <div id="bettergdpr_settings_page">
   <div style="display:block;">
   <h3 id="CustomPopupTitle" style="float:left;"></h3>
-  <div style="float:right;"><a target="_blank" href="https://privacybunker.io/"><img width=200 src="`+bettergdpr_full_domain+`site/images/logo.png" /></a></div>
+  <div style="float:right;"><a target="_blank" href="https://privacybunker.io/"><img width=200 src="`+bettergdpr_full_url_dir+`images/logo.png" /></a></div>
   <div style="clear: both;"></div>
   </div>
   <p style='text-align: justify;' id="CustomPopupDescription"></p>
@@ -42,7 +42,7 @@ var bettergdpr_html_code = `<div id="bettergdpr_settings_popup" style="backgroun
   <div style="display:inline;padding:7px 0px 0px 0px;margin:0;"><u style="color:#fff;font-weight: 400;background-color:transparent;cursor: pointer;font-size:12px;" onclick="bettergdpr_show_cookie_settings_modal();">Customize settings</u></div>
  </div>
  <div id='bettergdpr_branding'>
-  <div id='bettergdpr_powered_by'>Powered by&nbsp;&nbsp;<a target='_blank' href='https://privacybunker.io/'><img style="display:inline;margin-top:-5px;" width=140 src="`+ bettergdpr_full_domain +`site/images/powered-by.png" /></a></div>
+  <div id='bettergdpr_powered_by'>Powered by&nbsp;&nbsp;<a target='_blank' href='https://privacybunker.io/'><img style="display:inline;margin-top:-5px;" width=140 src="`+ bettergdpr_full_url_dir +`images/powered-by.png" /></a></div>
   <div style="float:right;font-size:12px;">Privacy portal <a style='color:#fff;font-weight: 300;background-color:transparent;cursor: pointer;font-size:12px;text-decoration:underline;' href='`+bettergdpr_full_domain+`' target='_blank'>`+bettergdpr_full_domain+`</a></div>
  </div>
 </div>`;
@@ -166,7 +166,7 @@ function bettergdpr_init_body() {
     style.rel = "stylesheet";
     style.id = 'bettergdpr_style_body';
     //style.innerHTML = '.bettergdpr_faded_body { overflow:hidden}';
-    style.href = bettergdpr_full_css_url;
+    style.href = bettergdpr_full_url_dir + 'better-gdpr.css';
     document.getElementsByTagName('head')[0].appendChild(style);
   }
 
