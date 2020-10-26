@@ -68,6 +68,7 @@ function bettergdpr_request_export($request) {
     return new WP_Error( 'not_found', 'user not found', array( 'status' => 404 ));
   }
   if (!$user && !empty($wc)) {
+    $wc['user_email'] = $email;
     $data = json_encode($wc);
     header('Content-Type: application/json; charset=UTF-8');
     echo($data);
