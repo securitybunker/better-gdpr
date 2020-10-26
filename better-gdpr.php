@@ -319,6 +319,36 @@ function bettergdpr_registration_save($user_id ) {
   return $errors;
 }
 
+function bettergdpr_woocommerce_consent_save( $customer_id, $data ) {
+  $email = $data['billing_email'];
+  if (!$email) {
+    return;
+  }
+  $record = bettergdpr_api_get_user('email', $email);
+  if (!(isset($record) && isset($record->status) && $record->status == "ok")) {
+    bettergdpr_api_create_user_by_email($email);
+  }
+  $options = bettergdpr_api_get_all_lbasis();
+  if (isset($options)) {
+    foreach ($options as $row) {
+      if ($row->status != "active") {
+        continue;
+      }
+      $b = $row->brief;
+      if (isset($data['bettergdpr-'.$b])) {
+        bettergdpr_api_agreement_accept($b, $email);
+      }
+    }
+  }
+  if (isset($_COOKIE['BETTERGDPR'])) {
+    $cookie_value = sanitize_text_field($_COOKIE['BETTERGDPR']);
+    $options = explode(',', $cookie_value);
+    foreach ($options as $row) {
+      bettergdpr_api_agreement_accept($row, $email);
+    }
+  }
+}
+
 function bettergdpr_profile_update($user_id, $old) {
   $user = get_user_by("id", $user_id);
   $record = bettergdpr_api_get_user('email', $old->user_email);
@@ -597,7 +627,7 @@ if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) {
   add_action( 'woocommerce_register_form', 'bettergdpr_custom_registration', 21);
 }
 add_filter( 'woocommerce_checkout_fields', 'bettergdpr_woocommerce_checkout');
-
+add_action( 'woocommerce_checkout_update_user_meta', 'bettergdpr_woocommerce_consent_save', 10, 2 );
 
 function bettergdpr_profile_edit_user( $user ) {
 $subdomain = get_option( 'bettergdpr_subdomain', '' );
