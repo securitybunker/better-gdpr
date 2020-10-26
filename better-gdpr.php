@@ -46,12 +46,38 @@ function bettergdpr_request_export($request) {
   if (strpos($email, '@') !== true) {
     $email = str_replace('%40', '@', $email);
   }
+  $wc = array();
+  if (function_exists('wc_get_orders')) {
+    $customer_orders = wc_get_orders(
+      array( 'limit'    => -1,
+             'customer' => array( $email ),
+             #'return'   => 'ids',
+      )
+    );
+    if (!empty($customer_orders)) {
+      $orders = array();
+      foreach ( $customer_orders as $order)
+      {
+        $orders[] = $order->data;
+      }
+      $wc['orders'] = $orders;
+    }
+  }
   $user = get_user_by("email", $email);
-  if (!$user) {
+  if (!$user && empty($wc)) {
     return new WP_Error( 'not_found', 'user not found', array( 'status' => 404 ));
+  }
+  if (!$user && !empty($wc)) {
+    $data = json_encode($wc);
+    header('Content-Type: application/json; charset=UTF-8');
+    echo($data);
+    exit();
   }
   $data = $user->data;
   unset($data->user_pass);
+  if (!empty($wc['orders'])) {
+    $data['orders'] = $wc['orders'];
+  }
   $data = json_encode($data);
   header('Content-Type: application/json; charset=UTF-8');
   echo($data);
