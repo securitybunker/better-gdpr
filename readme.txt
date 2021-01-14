@@ -75,6 +75,9 @@ Yes. We are planning to add multiple languages in the nearest future.
 
 == Changelog ==
 
+= 0.2.4 =
+* Minor validation improvement.
+
 = 0.2.3 =
 * Add Woocommerce support.
 
