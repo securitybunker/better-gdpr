@@ -60,8 +60,8 @@ Under the hood, user consent categories are saved in a special cookie called: "B
 
 = Free takeaway =
 
-I run a privacy training for startup founders and architects. It is available completely for FREE:
-https://basebunker.com/
+We run a privacy training for startup founders and architects. It is available completely for FREE:
+<a target='_blank' href='https://basebunker.com/'>BaseBunker.Com Privacy Training</a>
 
 == Frequently Asked Questions ==
 
