@@ -1,20 +1,24 @@
-const bettergdpr_js_url = document.getElementById("bettergdpr_js").src;
 var bettergdpr_tenant;
 var bettergdpr_full_domain;
 var bettergdpr_full_url_dir;
-if (bettergdpr_js_url) {
-  var bettergdpr_url = new URL(bettergdpr_js_url);
-  if (bettergdpr_url) {
-    bettergdpr_tenant = bettergdpr_url.searchParams.get('tenant');
-    if (bettergdpr_tenant) {
-      bettergdpr_full_domain = "https://"+bettergdpr_tenant+".privacybunker.cloud/";
-      bettergdpr_full_url_dir = bettergdpr_url.protocol + '//' + bettergdpr_url.host;
-      if ( bettergdpr_url.port ) {
-        bettergdpr_full_url_dir = bettergdpr_full_url_dir + ':' + bettergdpr_url.port;
+
+const bettergdpr_temp_scripts = document.getElementsByTagName('script');
+for (var index = 0; index < bettergdpr_temp_scripts.length; index++) {
+  if (bettergdpr_temp_scripts[index].src &&
+      bettergdpr_temp_scripts[index].src.includes('/better-gdpr.js?')) {
+    var bettergdpr_url = new URL(bettergdpr_temp_scripts[index].src);
+    if (bettergdpr_url) {
+      bettergdpr_tenant = bettergdpr_url.searchParams.get('tenant');
+      if (bettergdpr_tenant) {
+        bettergdpr_full_domain = "https://"+bettergdpr_tenant+".privacybunker.cloud/";
+        bettergdpr_full_url_dir = bettergdpr_url.protocol + '//' + bettergdpr_url.host;
+        if ( bettergdpr_url.port ) {
+          bettergdpr_full_url_dir = bettergdpr_full_url_dir + ':' + bettergdpr_url.port;
+        }
+        bettergdpr_full_url_dir = bettergdpr_full_url_dir + bettergdpr_url.pathname.replace('/better-gdpr.js', '/');
+	alert('good');
       }
-      bettergdpr_full_url_dir = bettergdpr_full_url_dir + bettergdpr_url.pathname.replace('/better-gdpr.js', '/');
     }
-    
   }
 }
 

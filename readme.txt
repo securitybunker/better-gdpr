@@ -3,7 +3,7 @@ Contributors: stremovsky
 Donate link: https://privacybunker.io/
 Tags: gdpr, privacy, privacy-tools, compliance, cookie-consent, security, cookie-banner, GDPR-compliance, general-data-protection-regulation, law, saas, regulations
 Requires at least: 4.7
-Tested up to: 5.5
+Tested up to: 5.6
 Stable tag: 4.3
 Requires PHP: 7.0
 License: GPLv3
@@ -58,6 +58,10 @@ It is very similar to other cookie consent popup plugins. The plugin injects Jav
 
 Under the hood, user consent categories are saved in a special cookie called: "BETTERGDPR". So, when the page loads, the plugin checks the value of the "BETTERGDPR" cookie and injects the approved JavaScript code. If it is a new site visitor, we will show the user our cookie consent popup.
 
+= Free takeaway =
+
+I run a privacy training for startup founders and architects. It is available completely for FREE:
+https://basebunker.com/
 
 == Frequently Asked Questions ==
 
@@ -74,6 +78,9 @@ Yes. We are planning to add multiple languages in the nearest future.
 
 
 == Changelog ==
+
+= 0.2.5 =
+* Use standard callback to place javascript.
 
 = 0.2.4 =
 * Minor validation improvement.

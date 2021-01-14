@@ -11,7 +11,7 @@
  * Plugin Name: Better GDPR
  * Plugin URI:  https:/privacybunker.io
  * Description: GDPR & Cookie Consent plugin built by PrivacyBunker.io team.
- * Version:     0.2.4
+ * Version:     0.2.5
  * Author:      Yuli Stremovsky
  * Author URI:  https://securitybunker.io
  * Text Domain: https://privacybunker.io
@@ -389,13 +389,11 @@ function bettergdpr_profile_update($user_id, $old) {
 function bettergdpr_cookie_consent() {
   $subdomain = get_option( 'bettergdpr_subdomain', '' );
   if ($subdomain == '') {
-    print("<!-- bettergdpr_subdomain empty -->");
     return;
   }
   $srv = "https://".$subdomain.".privacybunker.cloud/";
-  $css_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/better-gdpr.css';
-  print("<script id='bettergdpr_js' src='".plugin_dir_url( dirname( __FILE__ ) ) ."better-gdpr/better-gdpr.js?tenant=".$subdomain."' type='text/javascript'></script>");
-  #wp_enqueue_script( 'bettergdpr_js', plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/better-gdpr.js?tenant=' . $subdomain );
+  //print("<script id='bettergdpr_js' src='".plugin_dir_url( dirname( __FILE__ ) ) ."better-gdpr/better-gdpr.js?tenant=".$subdomain."' type='text/javascript'></script>");
+  wp_enqueue_script( 'bettergdpr_js', plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/better-gdpr.js?tenant=' . $subdomain );
 }
 
 add_action( 'delete_user', 'bettergdpr_delete_user');
@@ -403,8 +401,8 @@ add_action( 'profile_update', 'bettergdpr_profile_update', 10, 2);
 add_action( 'register_form', 'bettergdpr_custom_registration');
 add_action( 'registration_errors', 'bettergdpr_registration_check', 10, 3);
 add_action( 'user_register', 'bettergdpr_registration_save');
-//add_action( 'wp_enqueue_scripts', 'bettergdpr_cookie_consent', 1);
-add_action( 'wp_footer', 'bettergdpr_cookie_consent');
+add_action( 'wp_enqueue_scripts', 'bettergdpr_cookie_consent', 1);
+//add_action( 'wp_footer', 'bettergdpr_cookie_consent');
 
 if ( 'yes' === get_option( 'woocommerce_enable_myaccount_registration' ) ) {
   add_action( 'woocommerce_register_form', 'bettergdpr_custom_registration', 21);
