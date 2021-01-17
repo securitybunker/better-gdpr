@@ -6,10 +6,10 @@ var bettergdpr_full_url_dir;
 const bettergdpr_temp_scripts = document.getElementsByTagName('script');
 for (var index = 0; index < bettergdpr_temp_scripts.length; index++) {
   if (bettergdpr_temp_scripts[index].src &&
-      bettergdpr_temp_scripts[index].src.includes('tenant=')) {
+      bettergdpr_temp_scripts[index].src.includes('bettergdprtenant=')) {
     var bettergdpr_url = new URL(bettergdpr_temp_scripts[index].src);
     if (bettergdpr_url) {
-      bettergdpr_tenant = bettergdpr_url.searchParams.get('tenant');
+      bettergdpr_tenant = bettergdpr_url.searchParams.get('bettergdprtenant');
       if (bettergdpr_tenant) {
         bettergdpr_full_domain = "https://"+bettergdpr_tenant+".privacybunker.cloud/";
         bettergdpr_full_url_dir = bettergdpr_url.protocol + '//' + bettergdpr_url.host;
