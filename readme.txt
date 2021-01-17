@@ -79,10 +79,8 @@ Yes. We are planning to add multiple languages in the nearest future.
 
 == Changelog ==
 
-= 0.2.5 =
-* Use standard callback to place javascript.
-
-= 0.2.4 =
+= 0.2.6 =
+* Use standard callback to inject javascript.
 * Minor validation improvement.
 
 = 0.2.3 =
