@@ -1,4 +1,4 @@
-/* Better GDPR js code */
+/*! Better GDPR js code */
 var bettergdpr_tenant;
 var bettergdpr_full_domain;
 var bettergdpr_full_url_dir;
