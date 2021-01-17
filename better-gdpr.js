@@ -1,3 +1,4 @@
+/* Better GDPR js code */
 var bettergdpr_tenant;
 var bettergdpr_full_domain;
 var bettergdpr_full_url_dir;
@@ -5,7 +6,7 @@ var bettergdpr_full_url_dir;
 const bettergdpr_temp_scripts = document.getElementsByTagName('script');
 for (var index = 0; index < bettergdpr_temp_scripts.length; index++) {
   if (bettergdpr_temp_scripts[index].src &&
-      bettergdpr_temp_scripts[index].src.includes('/better-gdpr.js?')) {
+      bettergdpr_temp_scripts[index].src.includes('tenant=')) {
     var bettergdpr_url = new URL(bettergdpr_temp_scripts[index].src);
     if (bettergdpr_url) {
       bettergdpr_tenant = bettergdpr_url.searchParams.get('tenant');
