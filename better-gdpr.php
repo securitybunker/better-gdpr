@@ -11,7 +11,7 @@
  * Plugin Name: Better GDPR
  * Plugin URI:  https:/privacybunker.io
  * Description: GDPR & Cookie Consent plugin built by PrivacyBunker.io team.
- * Version:     0.2.7
+ * Version:     0.2.8
  * Author:      Yuli Stremovsky
  * Author URI:  https://securitybunker.io
  * Text Domain: https://privacybunker.io
