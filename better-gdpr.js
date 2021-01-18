@@ -93,14 +93,21 @@ function bettergdpr_load_settings() {
             }
           }
           if (found == true) {
-            if (scriptObj.script.startsWith("<script")) {
-              var template = document.createElement('template');
-              template.innerHTML = scriptObj.script;
-              document.head.appendChild( template );
-            } else {
+            if (scriptObj.script.startsWith("http")) {
               var script = document.createElement( "script" );
-              script.text = scriptObj.script;
+              script.setAttribute('type', 'text/javascript');
+              script.setAttribute('src', scriptObj.script);
+              //script.text = scriptObj.script;
               document.head.appendChild( script );
+            } else { 
+              var range = document.createRange();
+              if (document.head) {
+                range.selectNode(document.head);
+              } else if (document.body) {
+                range.selectNode(document.body);
+              }
+              var docFrg = range.createContextualFragment(scriptObj.script);
+              document.body.appendChild(docFrg);
             }
           }
         }
