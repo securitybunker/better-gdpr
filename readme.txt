@@ -79,6 +79,9 @@ Yes. We are planning to add multiple languages in the nearest future.
 
 == Changelog ==
 
+= 0.2.7 =
+* Fix javascript code injection.
+
 = 0.2.6 =
 * Use standard callback to inject javascript.
 * Minor validation improvement.
