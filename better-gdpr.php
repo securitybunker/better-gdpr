@@ -11,7 +11,7 @@
  * Plugin Name: Better GDPR
  * Plugin URI:  https:/privacybunker.io
  * Description: GDPR & Cookie Consent plugin built by PrivacyBunker.io team.
- * Version:     0.2.8
+ * Version:     0.2.9
  * Author:      Yuli Stremovsky
  * Author URI:  https://securitybunker.io
  * Text Domain: https://privacybunker.io
@@ -392,8 +392,8 @@ function bettergdpr_cookie_consent() {
     return;
   }
   $srv = "https://".$subdomain.".privacybunker.cloud/";
-  //print("<script id='bettergdpr_js' src='".plugin_dir_url( dirname( __FILE__ ) ) ."better-gdpr/better-gdpr.js?tenant=".$subdomain."' type='text/javascript'></script>");
-  wp_enqueue_script( 'bettergdpr_js', plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/better-gdpr.js?bettergdprtenant=' . $subdomain );
+  //print("<script id='bettergdpr_js' src='".plugin_dir_url( dirname( __FILE__ ) ) ."better-gdpr/better-gdpr1.js?tenant=".$subdomain."' type='text/javascript'></script>");
+  wp_enqueue_script( 'bettergdpr_js', plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/better-gdpr1.js?bettergdprtenant=' . $subdomain );
 }
 
 add_action( 'delete_user', 'bettergdpr_delete_user');
