@@ -16,7 +16,7 @@ for (var index = 0; index < bettergdpr_temp_scripts.length; index++) {
         if ( bettergdpr_url.port ) {
           bettergdpr_full_url_dir = bettergdpr_full_url_dir + ':' + bettergdpr_url.port;
         }
-        bettergdpr_full_url_dir = bettergdpr_full_url_dir + bettergdpr_url.pathname.replace('/better-gdpr1.js', '/');
+        bettergdpr_full_url_dir = bettergdpr_full_url_dir + bettergdpr_url.pathname.replace('/better-gdpr.js', '/');
       }
     }
   }

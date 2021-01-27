@@ -79,7 +79,7 @@ Yes. We are planning to add multiple languages in the nearest future.
 
 == Changelog ==
 
-= 0.2.10 =
+= 0.2.11 =
 * Fix javascript code injection.
 
 = 0.2.6 =
