@@ -10,20 +10,6 @@ function bettergdpr_admin_page() {
   }
 }
 
-function bettergdpr_generate_subdomain($site) {
-  $s = parse_url($site);
-  $host = $s["host"];
-  $levels = explode('.', $host);
-  array_pop($levels);
-  if (end($levels) == "gov" || end($levels) == "co" || end($levels) == "com" || end($levels) == "org") {
-    array_pop($levels);
-  }
-  if ($levels[0] == "www") {
-    array_shift($levels);
-  }
-  return join("-", $levels);
-}
-
 function bettergdpr_register_tenant($code, $site, $email, $subdomain) {
   $result = bettergdpr_api_register($code, $site, $email, $subdomain);
   if ($result->status != "ok") {
