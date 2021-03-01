@@ -10,9 +10,10 @@ function bettergdpr_get_request($url) {
     'headers' => array(
       'X-Bunker-Token' => $xtoken
     ),
-    'blocking' => true
+    'blocking' => true,
+    'method' => 'GET'
   );
-  $response  = wp_remote_get($full_url, $args);
+  $response  = wp_remote_request($full_url, $args);
   $body      = wp_remote_retrieve_body( $response );
   $http_code = wp_remote_retrieve_response_code( $response );
   if ( $http_code != 200) {
