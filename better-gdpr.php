@@ -392,8 +392,7 @@ function bettergdpr_cookie_consent() {
     return;
   }
   $srv = "https://".$subdomain.".privacybunker.cloud/";
-  //print("<script id='bettergdpr_js' src='".plugin_dir_url( dirname( __FILE__ ) ) ."better-gdpr/better-gdpr.js?tenant=".$subdomain."' type='text/javascript'></script>");
-  wp_enqueue_script( 'bettergdpr_js', plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/better-gdpr.js?bettergdprtenant=' . $subdomain );
+  wp_enqueue_script( 'bettergdpr_js', $srv . 'site/better-gdpr.js?bettergdprtenant=' . $subdomain );
 }
 
 add_action( 'delete_user', 'bettergdpr_delete_user');
