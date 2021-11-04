@@ -130,7 +130,7 @@ function bettergdpr_setup_page() {
       bettergdpr_wizard_page();
       return;
     } else {
-      $errmsg = $result->error;
+      $errmsg = $result->message;
       $errstyle = "display:block;";
       $step = 1;
     }
@@ -150,7 +150,7 @@ function bettergdpr_validate_subdomain(obj) {
       var data = JSON.parse(xhr0.responseText);
       var err = document.getElementById('bettergdpr_error');
       if (data && data.status && data.status === "error") {
-	err.innerHTML = data.error;
+	err.innerHTML = data.message;
 	err.style.display = "block";
       } else {
         err.style.display = "none";
@@ -184,7 +184,7 @@ function bettergdpr_register1() {
       var form0 = document.getElementById('bettergdpr_step0');
       var form1 = document.getElementById('bettergdpr_step1');
       if (data && data.status && data.status === "error") {
-        err.innerHTML = data.error;
+        err.innerHTML = data.message;
         err.style.display = "block";
       } else {
         err.style.display = "none";
