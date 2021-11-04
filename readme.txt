@@ -24,11 +24,11 @@ Better-GDPR is a part of the <a target='_blank' href='https://privacybunker.io/'
 
 Among them:
 
-*. Advanced GDPR compliant cookie banner with built-in end-user privacy controls.
-*. A one-click tool to extract, delete or anonymize personal data from internal databases.
-*. Data Privacy Officer (DPO) management console.
-*. A one-click tool to extract or delete personal data from SAAS products.
-*. Daily GDPR violations scanner ensures that any change made on your website is checked.
+• Advanced GDPR compliant cookie banner with built-in end-user privacy controls.
+• A one-click tool to extract, delete or anonymize personal data from internal databases.
+• Data Privacy Officer (DPO) management console.
+• A one-click tool to extract or delete personal data from SAAS products.
+• Daily GDPR violations scanner ensures that any change made on your website is checked.
 
 
 = Seamless integration =
