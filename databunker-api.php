@@ -164,23 +164,22 @@ function bettergdpr_api_update_user($old_email, $user) {
 
 function bettergdpr_api_register($code, $site, $email, $subdomain) {
   $data = array(
+    'full' => "1",
     'code' => $code,
     'site' => $site,
     'email' => $email,
     'subdomain' => $subdomain    
   );
-  $full_url = "https://privacybunker.cloud/v1/account/step2";
+  $full_url = "https://privacybunker.io/api/signup.php";
   $args = array(
     'headers' => array(
-      'Content-Type' => 'application/json'
+      'Content-Type' => 'application/x-www-form-urlencoded'
     ),
     'blocking' => true,
     'method'   => 'POST'
   );
-  if (!empty($data)) {
-    $payload = json_encode($data);
-    $args['body'] = $payload;
-  }
+  $payload = http_build_query($data);
+  $args['body'] = $payload;
   $response  = wp_remote_request($full_url, $args);
   $body      = wp_remote_retrieve_body( $response );
   $http_code = wp_remote_retrieve_response_code( $response );

@@ -19,7 +19,7 @@ function bettergdpr_register_tenant($code, $site, $email, $subdomain) {
   update_option('bettergdpr_sitekey', $result->sitekey);
   update_option('bettergdpr_xtoken', $result->xtoken);
   # configure wp plugin configuration
-  bettergdpr_api_wpsetup();
+  #bettergdpr_api_wpsetup();
   return $result;
 }
 
@@ -36,18 +36,10 @@ if ($info && $info->status == "ok") {
     $standing = $info->standing;
   }
 }
-if ($standing == "" or $standing == "deleted") {
+if ($standing == "deleted") {
 ?>
-<script type='text/javascript' src='<?php echo($service); ?>/site/wizard.js' ></script>
-<link rel='stylesheet' type='text/css' media='all' href='<?php echo($service); ?>/site/wizard.css' />
-<div class='better-gdpr-admin'>
-<div id='bettergdpr-wizard'>&nbsp;</div>
-<script type="text/javascript">
-jQuery( document ).ready(function() {
-  bettergdprShowWizardPage('end');
-});
-</script>
-</div>
+<h2>Your account is disabled.</h2>
+<p>Contact hello@privacybunker.io for additional information.</p>
 <?php
   return;
 }
@@ -63,7 +55,8 @@ function bettergdpr_copy_token() {
 }
 </script>
 <h3>Privacy Bunker Access</h3>
-<p style="font-size:150%;">One-click access: <a target="_blank" href="<?php echo($url); ?>">click here</a></p>
+<p style="font-size:150%;">Privacybunker service access: <a target="_blank" href="https://privacybunker.io/login/">link</a></p>
+<p style="font-size:150%;">DPO portal: <a target="_blank" href="<?php echo($url); ?>">link</a></p>
 <p>&nbsp;<p>
 <p>Admin access token for your website: <a href='#' onclick="bettergdpr_copy_token();">(copy)</a></p>
 <p>Privacy Bunker Service direct URL: <a target="_blank" href="<?php echo($service); ?>"><?php echo($service); ?></a></p>
@@ -126,8 +119,8 @@ function bettergdpr_setup_page() {
     $code = sanitize_text_field($_POST["code"]);
     $result = bettergdpr_register_tenant($code, $site, $account_email, $subdomain);
     if ($result->status == "ok") {
-      //bettergdpr_show_admin_ui();
-      bettergdpr_wizard_page();
+      bettergdpr_show_admin_ui();
+      //bettergdpr_wizard_page();
       return;
     } else {
       $errmsg = $result->message;
@@ -170,13 +163,13 @@ function bettergdpr_start() {
 function bettergdpr_register1() {
   var email = document.getElementById('edit-mail').value;
   var subdomain = document.getElementById('edit-subdomain').value;
-  const msg = {};
-  msg["email"] = email;
-  msg["site"] = "<?php echo($site); ?>";
-  msg["subdomain"] = subdomain;
+  var msg = new URLSearchParams();
+  msg.append('site', "<?php echo($site); ?>");
+  msg.append('email', email);
+  msg.append('subdomain', subdomain);
   var xhr0 = new XMLHttpRequest();
-  xhr0.open('POST', "<?php echo($srv); ?>/v1/account/step1");
-  xhr0.setRequestHeader('Content-Type', 'application/xml');
+  xhr0.open('POST', "https://privacybunker.io/api/signup.php");
+  xhr0.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr0.onload = function () {
     if (xhr0.status === 200) {
       var data = JSON.parse(xhr0.responseText);
@@ -193,7 +186,7 @@ function bettergdpr_register1() {
       }
     }
   };
-  xhr0.send(JSON.stringify(msg));
+  xhr0.send(msg.toString());
 }
 function submit_step2(form) {
   var code = document.getElementById('edit-code').value;
@@ -202,7 +195,6 @@ function submit_step2(form) {
   form.code.value = code;
   form.email.value = email;
   form.subdomain.value = subdomain;
-  console.log(form);
   return true;
 }
 </script>
