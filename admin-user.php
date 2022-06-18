@@ -54,12 +54,10 @@ function bettergdpr_copy_token() {
   document.body.removeChild(el);
 }
 </script>
-<h3>Privacy Bunker Access</h3>
-<p style="font-size:150%;">Privacybunker service access: <a target="_blank" href="https://privacybunker.io/login/">link</a></p>
-<p style="font-size:150%;">DPO portal: <a target="_blank" href="<?php echo($url); ?>">link</a></p>
+<h3>Privacybunker Access</h3>
+<p style="font-size:150%;">Privacybunker access link: <a target="_blank" href="https://privacybunker.io/login/">https://privacybunker.io/login/</a></p>
+<p style="font-size:150%;">DPO portal: <a target="_blank" href="<?php echo($url); ?>">click to open site</a></p>
 <p>&nbsp;<p>
-<p>Admin access token for your website: <a href='#' onclick="bettergdpr_copy_token();">(copy)</a></p>
-<p>Privacy Bunker Service direct URL: <a target="_blank" href="<?php echo($service); ?>"><?php echo($service); ?></a></p>
 <p>If you have any questions you can contact our support at <u>onboarding@privacybunker.io</u></p>
 <?php
 }
@@ -206,7 +204,7 @@ function submit_step2(form) {
 <img alt="Logo" src="<?php echo($logo_file); ?>" width=200 style="padding:20px;"/>
 </div>
 <div style="padding:10px;text-align:left;">
- <h2 style="padding:0 0 5px 0;margin:0;">Start with plugin activation</h2>
+ <h2 style="padding:0 0 5px 0;margin:0;text-align: center;">Plugin activation</h2>
  <div id="bettergdpr_error" class="error" style="<?php echo($errstyle); ?>"><?php echo($errmsg); ?></div>
  <div style="display:block;height:20px;"></div>
  <form id="bettergdpr_step0" accept-charset="UTF-8" method="post" action="#" style="display:<?php echo(($step==0)?"block":"none")?>;">
@@ -242,7 +240,7 @@ function submit_step2(form) {
 </div>
 <hr>
 <center>
-<a href="https://privacybunker.cloud/" target="_blank">Privacybunker.Cloud Term Of Service</a>
+<a href="https://privacybunker.io/" target="_blank">Terms of service</a>
 </center>
 </div>
 </center>
@@ -308,7 +306,9 @@ function bettergdpr_uninstall() {
 }
 
 function bettergdpr_init_admin() {
-  add_action('admin_menu', 'bettergdpr_admin_menu');
+  add_action( 'admin_post_bettergdpr_reg1', 'bettergdpr_reg1');
+  add_action( 'wp_ajax_bettergdpr_ajax_reg1', 'bettergdpr_ajax_reg1');
+  add_action( 'admin_menu', 'bettergdpr_admin_menu' );
   add_filter( 'plugin_action_links', 'bettergdpr_plugin_action_links_callback', 10, 4 );
   // add column to the list of users to display list of given consents
   // it is available at /wp-admin/users.php
