@@ -37,14 +37,14 @@ function bettergdpr_ajax_reg() {
     if ($result->sitekey && $result->xtoken) {
       update_option('bettergdpr_sitekey', $result->sitekey);
       update_option('bettergdpr_xtoken', $result->xtoken);
+      $array_result = array(
+        'status' => 'done',
+      );
+      wp_send_json($array_result);
+      return;
     }
-    $array_result = array(
-      'status' => 'done',
-    );
-    wp_send_json($array_result);
-  } else {
-    wp_send_json($result);
   }
+  wp_send_json($result);
 }
 
 function bettergdpr_show_admin_ui() {
@@ -247,7 +247,7 @@ function submit_step2(form) {
      <div style="clear:both;"></div>
    </div>
    <div class="form-item" id="submit-wrapper" style="clear:left;padding-top:10px;">
-     <button type="button" name="register" id="validate-code" class="form-submit button button-primary" style="margin-left:165px;">Validate code</button>
+     <button type="button" name="register" id="validate-code" class="form-submit button button-primary" style="margin-left:165px;" onclick="bettergdpr_register1();">Validate code</button>
      <button type="button" name="cancel" id="edit-cancel" class="form-submit button button-secondary" style="margin-left:10px;" onclick="bettergdpr_start();">Cancel</button>
    </div>
  </form> 
