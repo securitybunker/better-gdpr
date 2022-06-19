@@ -165,11 +165,13 @@ function bettergdpr_api_update_user($old_email, $user) {
 function bettergdpr_api_register($code, $site, $email, $subdomain) {
   $data = array(
     'full' => "1",
-    'code' => $code,
     'site' => $site,
     'email' => $email,
-    'subdomain' => $subdomain    
+    'subdomain' => $subdomain
   );
+  if (!empty($code)) {
+    $data['code'] = $code;
+  }
   $full_url = "https://privacybunker.io/api/signup.php";
   $args = array(
     'headers' => array(

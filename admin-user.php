@@ -10,17 +10,41 @@ function bettergdpr_admin_page() {
   }
 }
 
-function bettergdpr_register_tenant($code, $site, $email, $subdomain) {
-  $result = bettergdpr_api_register($code, $site, $email, $subdomain);
-  if ($result->status != "ok") {
-    return $result;
+function bettergdpr_register() {
+  $account_email = get_settings('admin_email');
+  $site = get_settings('siteurl');
+  $subdomain = bettergdpr_generate_subdomain($site);
+  $srv = "https://privacybunker.cloud";
+  $code = "";
+  if (isset($_POST["email"])) {
+    $account_email = sanitize_email($_POST["email"]);
+  } else {
+  
   }
-  update_option('bettergdpr_subdomain', $subdomain);
-  update_option('bettergdpr_sitekey', $result->sitekey);
-  update_option('bettergdpr_xtoken', $result->xtoken);
-  # configure wp plugin configuration
-  #bettergdpr_api_wpsetup();
+  if (isset($_POST["subdomain"])) {
+    $subdomain = sanitize_text_field($_POST["subdomain"]);
+  }
+  if (isset($_POST["email"]) && isset($_POST["code"]) && isset($_POST["subdomain"])) {
+    $code = sanitize_text_field($_POST["code"]);
+  }
+  $result = bettergdpr_api_register($code, $site, $account_email, $subdomain);
   return $result;
+}
+
+function bettergdpr_ajax_reg() {
+  $result = bettergdpr_register();
+  if ($result->status == 'done' || $result->status == 'ok') {
+    if ($result->sitekey && $result->xtoken) {
+      update_option('bettergdpr_sitekey', $result->sitekey);
+      update_option('bettergdpr_xtoken', $result->xtoken);
+    }
+    $array_result = array(
+      'status' => 'done',
+    );
+    wp_send_json($array_result);
+  } else {
+    wp_send_json($result);
+  }
 }
 
 function bettergdpr_show_admin_ui() {
@@ -104,28 +128,9 @@ function bettergdpr_setup_page() {
   $site = get_settings('siteurl');
   $subdomain = bettergdpr_generate_subdomain($site);
   $srv = "https://privacybunker.cloud";
-  if (isset($_POST["email"])) {
-    $account_email = sanitize_email($_POST["email"]);
-  }
-  if (isset($_POST["subdomain"])) {
-    $subdomain = sanitize_text_field($_POST["subdomain"]);
-  }
   $errmsg = "";
   $step = 0;
   $errstyle = "display:none;";
-  if (isset($_POST["email"]) && isset($_POST["code"]) && isset($_POST["subdomain"])) {
-    $code = sanitize_text_field($_POST["code"]);
-    $result = bettergdpr_register_tenant($code, $site, $account_email, $subdomain);
-    if ($result->status == "ok") {
-      bettergdpr_show_admin_ui();
-      //bettergdpr_wizard_page();
-      return;
-    } else {
-      $errmsg = $result->message;
-      $errstyle = "display:block;";
-      $step = 1;
-    }
-  }
   $logo_file = plugin_dir_url( dirname( __FILE__ ) ) . 'better-gdpr/images/logo.png';
 ?>
 <script>
@@ -159,14 +164,20 @@ function bettergdpr_start() {
   form0.style.display = "block";
 }
 function bettergdpr_register1() {
+  //admin-ajax.php
   var email = document.getElementById('edit-mail').value;
   var subdomain = document.getElementById('edit-subdomain').value;
+  var code = document.getElementById('edit-code').value;
   var msg = new URLSearchParams();
   msg.append('site', "<?php echo($site); ?>");
   msg.append('email', email);
   msg.append('subdomain', subdomain);
+  if (code) {
+    msg.append('code', code);
+  }
+  msg.append('action', 'bettergdpr_ajax_reg');
   var xhr0 = new XMLHttpRequest();
-  xhr0.open('POST', "https://privacybunker.io/api/signup.php");
+  xhr0.open('POST', "/wp-admin/admin-ajax.php");
   xhr0.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr0.onload = function () {
     if (xhr0.status === 200) {
@@ -178,6 +189,9 @@ function bettergdpr_register1() {
         err.innerHTML = data.message;
         err.style.display = "block";
       } else {
+	if (data && data.status && data.status === "done") {
+          window.location.search = "page=bettergdpr";
+	}
         err.style.display = "none";
 	form0.style.display = "none";
 	form1.style.display = "block";
@@ -207,7 +221,7 @@ function submit_step2(form) {
  <h2 style="padding:0 0 5px 0;margin:0;text-align: center;">Plugin activation</h2>
  <div id="bettergdpr_error" class="error" style="<?php echo($errstyle); ?>"><?php echo($errmsg); ?></div>
  <div style="display:block;height:20px;"></div>
- <form id="bettergdpr_step0" accept-charset="UTF-8" method="post" action="#" style="display:<?php echo(($step==0)?"block":"none")?>;">
+ <form id="bettergdpr_step0" accept-charset="UTF-8" method="post" action="#" style="display:block;">
    <i>Type your email address bellow to activate your account.</i>
    <div class="form-item" id="edit-mail-wrapper" style="padding-top:10px;">
      <label for="edit-mail" style="float:left;padding-top:6px;">E-mail address:</label>
@@ -223,7 +237,7 @@ function submit_step2(form) {
      <button type="button" name="register" id="edit-submit" value="Activate" class="form-submit btn btn-primary button button-primary" style="margin-left:165px;" onclick="bettergdpr_register1();">Register Me</button>
    </div>
  </form>
- <form id="bettergdpr_step1" accept-charset="UTF-8" method="post" style="display:<?php echo(($step==1)?"block":"none")?>;" onsubmit="submit_step2(this)">
+ <form id="bettergdpr_step1" accept-charset="UTF-8" method="post" action="#" style="display:none;">
    <i>Enter code you received by email to finish registration.</i>
    <input type="hidden" name="email" value="register" />
    <input type="hidden" name="subdomain" value="register" />
@@ -233,7 +247,7 @@ function submit_step2(form) {
      <div style="clear:both;"></div>
    </div>
    <div class="form-item" id="submit-wrapper" style="clear:left;padding-top:10px;">
-     <input type="submit" name="register" id="edit-submit" value="Validate Code" class="form-submit button button-primary" style="margin-left:165px;" />
+     <button type="button" name="register" id="validate-code" class="form-submit button button-primary" style="margin-left:165px;">Validate code</button>
      <button type="button" name="cancel" id="edit-cancel" class="form-submit button button-secondary" style="margin-left:10px;" onclick="bettergdpr_start();">Cancel</button>
    </div>
  </form> 
@@ -306,8 +320,7 @@ function bettergdpr_uninstall() {
 }
 
 function bettergdpr_init_admin() {
-  add_action( 'admin_post_bettergdpr_reg1', 'bettergdpr_reg1');
-  add_action( 'wp_ajax_bettergdpr_ajax_reg1', 'bettergdpr_ajax_reg1');
+  add_action( 'wp_ajax_bettergdpr_ajax_reg', 'bettergdpr_ajax_reg');
   add_action( 'admin_menu', 'bettergdpr_admin_menu' );
   add_filter( 'plugin_action_links', 'bettergdpr_plugin_action_links_callback', 10, 4 );
   // add column to the list of users to display list of given consents
