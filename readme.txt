@@ -56,6 +56,9 @@ We run a privacy training for startup founders and architects. It is available c
 
 == Changelog ==
 
+= 0.3.2 =
+* Update registration code.
+
 = 0.3.1 =
 * Update to the latest code.
 

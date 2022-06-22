@@ -82,7 +82,7 @@ function bettergdpr_copy_token() {
 <p style="font-size:150%;">Privacybunker access link: <a target="_blank" href="https://privacybunker.io/login/">https://privacybunker.io/login/</a></p>
 <p style="font-size:150%;">DPO portal: <a target="_blank" href="<?php echo($url); ?>">click to open site</a></p>
 <p>&nbsp;<p>
-<p>If you have any questions you can contact our support at <u>onboarding@privacybunker.io</u></p>
+<p>If you have any questions you can contact our support at <u>hello@privacybunker.io</u></p>
 <?php
 }
 
