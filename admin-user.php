@@ -18,11 +18,12 @@ function bettergdpr_register() {
   $code = "";
   if (isset($_POST["email"])) {
     $account_email = sanitize_email($_POST["email"]);
-  } else {
-  
   }
   if (isset($_POST["subdomain"])) {
     $subdomain = sanitize_text_field($_POST["subdomain"]);
+  }
+  if ($subdomain) {
+    update_option('privacybunker_subdomain', $subdomain);
   }
   if (isset($_POST["email"]) && isset($_POST["code"]) && isset($_POST["subdomain"])) {
     $code = sanitize_text_field($_POST["code"]);
@@ -101,27 +102,6 @@ function my_load_scripts($hook) {
 }
 add_action('admin_enqueue_scripts', 'my_load_scripts');
 */
-
-function bettergdpr_wizard_page() {
-$xtoken = get_option( 'bettergdpr_xtoken', '' );
-$subdomain = get_option( 'bettergdpr_subdomain', '' );
-$service = "https://".$subdomain.".privacybunker.cloud/";
-?>
-<script type='text/javascript' src='<?php echo($service); ?>/site/wizard.js' ></script>
-<link rel='stylesheet' type='text/css' media='all' href='<?php echo($service); ?>/site/wizard.css' />
-<div class='better-gdpr-admin'>
-<div id='bettergdpr-wizard'>&nbsp;</div>
-<script type="text/javascript">
-jQuery( document ).ready(function() {
-  bettergdprLoadSettings('<?php echo($xtoken); ?>', '<?php echo($service); ?>', 'v1/account/technologies');
-  bettergdprLoadSettings('<?php echo($xtoken); ?>', '<?php echo($service); ?>', 'v1/account/objectives');
-  bettergdprShowWizardPage('objectives');
-});
-</script>
-<center><p>If you have any questions you can contact us at <u>onboarding@privacybunker.io</u></p></center>
-</div>
-<?php
-}
 
 function bettergdpr_setup_page() {
   $account_email = get_settings('admin_email');
