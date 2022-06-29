@@ -4,7 +4,7 @@ Donate link: https://privacybunker.io/
 Tags: gdpr, privacy, privacy-tools, compliance, cookie-consent, security, cookie-banner, GDPR-compliance, general-data-protection-regulation, law, saas, regulations
 Requires at least: 4.7
 Tested up to: 5.6
-Stable tag: 4.3
+Stable tag: 0.3.2
 Requires PHP: 7.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
